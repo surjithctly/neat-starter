@@ -1,63 +1,44 @@
 backend:
   name: github
-  repo: githubuser/reponame
+  repo: surjithctly/neat-starter
 media_folder: "static/img"
-# local_backend: true
+# Please run "npx netlify-cms-proxy-server" for local backend
+local_backend: true
 # publish_mode: editorial_workflow
 collections:
-  - label: "Home Page"
-    name: "index"
+  - label: "Settings"
+    name: "settings"
     editor:
       preview: false
     files:
-      - label: "Header"
-        name: "header"
-        file: "_data/index/header.json"
-        media_folder: "static/img/slider"
+      - label: "Navigation"
+        name: "items"
+        file: "_data/navigation.yaml"
         fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Description, name: desc, widget: text }
-          - { label: Mobile Description, name: mobiledesc, widget: text }
-          - { label: Button Text, name: buttontext, widget: string }
-          - label: Slider
-            name: slider
+          - label: Nav Items
+            name: items
             widget: list
             allow_add: false
             collapsed: false
             fields:
-              - { label: Image, name: image, widget: image }
-      - label: "Overview"
-        name: "overview"
-        file: "_data/index/overview.json"
+              - { label: Title, name: text, widget: string }
+              - { label: URL, name: url, widget: string }
+      - label: "Quick Links"
+        name: "links"
+        file: "_data//quicklinks.yaml"
         fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Description, name: desc, widget: text }
-          - label: Highlights
-            name: highlights
+          - label: Nav Items
+            name: links
             widget: list
-            allow_add: false
             collapsed: false
             fields:
               - { label: Title, name: title, widget: string }
+              - { label: URL, name: url, widget: string }
               - { label: Description, name: desc, widget: string }
-              - { label: Icon, name: icon, widget: image }
-      - label: "Tab Content"
-        name: "tabs"
-        file: "_data/index/tab.json"
+      - label: "Meta Settings"
+        name: "settings"
+        file: "_data/settings.yaml"
         fields:
-          - label: Content
-            name: content
-            widget: list
-            allow_add: false
-            collapsed: false
-            fields:
-              - { label: Title, name: title, widget: string }
-              - { label: Description, name: desc, widget: string }
-              - { label: Icon, name: icon, widget: image }
-              - label: Icons
-                name: list
-                widget: list
-                allow_add: false
-                fields:
-                  - { label: Icon, name: icon, widget: image }
-                  - { label: Text, name: text, widget: string }
+          - { label: Name, name: name, widget: string }
+          - { label: Author, name: author, widget: string }
+          - { label: URL, name: url, widget: string }
