@@ -1,9 +1,9 @@
-<div class="w-full max-w-2xl grid grid-cols-2 gap-4 my-8">
+<div class="w-full max-w-2xl grid grid-cols-1 lg:grid-cols-2 gap-4 my-8 px-4 lg:mx-0">
 
     {% if quicklinks.links %}
 
         {% for item in quicklinks.links %}
-            <a href="{{item.url}}" target="_blank" class="p-5 border rounded border-gray-200 hover:border-indigo-400">
+            <a href="{{item.url}}" target="_blank" class="p-5 border rounded border-gray-200 hover:border-purple-400">
                 <h3>{{item.title}}
                     →</h3>
                 <p>{{item.desc}}</p>
@@ -19,5 +19,7 @@
         {{settings.meta.name}}
         2020. Made with ❤ by
         <a href="{{settings.meta.url}}" target="_blank" class="underline">{{settings.meta.author}}</a>
+        •
+        <a href="https://github.com/surjithctly/neat-starter" class="underline" target="_blank">View on Github</a>
     </small>
 </footer>
