@@ -1,0 +1,63 @@
+backend:
+  name: github
+  repo: githubuser/reponame
+media_folder: "static/img"
+# local_backend: true
+# publish_mode: editorial_workflow
+collections:
+  - label: "Home Page"
+    name: "index"
+    editor:
+      preview: false
+    files:
+      - label: "Header"
+        name: "header"
+        file: "_data/index/header.json"
+        media_folder: "static/img/slider"
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Mobile Description, name: mobiledesc, widget: text }
+          - { label: Button Text, name: buttontext, widget: string }
+          - label: Slider
+            name: slider
+            widget: list
+            allow_add: false
+            collapsed: false
+            fields:
+              - { label: Image, name: image, widget: image }
+      - label: "Overview"
+        name: "overview"
+        file: "_data/index/overview.json"
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - label: Highlights
+            name: highlights
+            widget: list
+            allow_add: false
+            collapsed: false
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: desc, widget: string }
+              - { label: Icon, name: icon, widget: image }
+      - label: "Tab Content"
+        name: "tabs"
+        file: "_data/index/tab.json"
+        fields:
+          - label: Content
+            name: content
+            widget: list
+            allow_add: false
+            collapsed: false
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: desc, widget: string }
+              - { label: Icon, name: icon, widget: image }
+              - label: Icons
+                name: list
+                widget: list
+                allow_add: false
+                fields:
+                  - { label: Icon, name: icon, widget: image }
+                  - { label: Text, name: text, widget: string }
