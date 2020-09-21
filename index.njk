@@ -3,7 +3,16 @@ layout: default
 title: Neat Starter
 ---
 
-{% include "_includes/partials/content.njk" %}
+<div class="container mx-auto h-screen flex flex-col justify-center items-center">
 
+    <h1>Welcome to
+        <strong class="text-indigo-500">{{title}}</strong>
+    </h1>
 
-<h3>Hey, I'm just normal HTML</h3>
+    <p>Get Started by editing
+        <code class="bg-gray-100 text-blue-800 p-1">/index.njk</code>
+    </p>
+
+    {% include "_includes/partials/content.njk" %}
+
+</div>

@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: true,
+    mode: "all",
     content: ["./**/*.njk"],
     options: {
       whitelist: [],
@@ -9,13 +9,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: { 
-          100: "#176AEF", 
+        primary: {
+          100: "#176AEF",
         },
-      }, 
+      },
     },
   },
   variants: {},
   plugins: [],
   experimental: "all",
+  future: {
+    purgeLayersByDefault: true,
+  },
 };

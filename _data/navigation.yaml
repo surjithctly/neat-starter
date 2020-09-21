@@ -1,0 +1,10 @@
+---
+items:
+  - text: Products
+    url: "#"
+  - text: Features
+    url: "#"
+  - text: Pricing
+    url: "#"
+  - text: Contact
+    url: "#"

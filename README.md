@@ -7,7 +7,7 @@ Starter Template for Netlify CMS, Eleventy, Alphine JS & Tailwind CSS
 ### 1\. Clone this Repository
 
 ```
-git clone https://github.com/surjithctly/neat-starter
+git clone https://github.com/surjithctly/neat-starter.git
 ```
 
 ### 2\. Navigate to the directory

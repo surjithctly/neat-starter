@@ -1,3 +1,23 @@
-<nav>
-Hey, I'm a Content
-</nav>
+<div class="w-full max-w-2xl grid grid-cols-2 gap-4 my-8">
+
+    {% if quicklinks.links %}
+
+        {% for item in quicklinks.links %}
+            <a href="{{item.url}}" target="_blank" class="p-5 border rounded border-gray-200 hover:border-indigo-400">
+                <h3>{{item.title}}
+                    →</h3>
+                <p>{{item.desc}}</p>
+            </a>
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+<footer class="fixed bottom-0 py-4">
+    <small class="text-gray-500">Copyright ©
+        {{settings.meta.name}}
+        2020. Made with ❤ by
+        <a href="{{settings.meta.url}}" target="_blank" class="underline">{{settings.meta.author}}</a>
+    </small>
+</footer>

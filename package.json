@@ -1,15 +1,20 @@
 {
   "scripts": {
-    "start": "npm run eleventy",
-    "eleventy": "eleventy --serve && postcss static/css/tailwind.css --o _site/static/css/style.css --watch",
+    "start": "npm-run-all --parallel css eleventy",
+    "eleventy": "eleventy --serve",
     "css": "postcss static/css/tailwind.css --o _tmp/static/css/style.css --watch",
-    "build": "eleventy && postcss static/css/tailwind.css --o _site/static/css/style.css"
+    "build": "cross-env NODE_ENV=production eleventy && cross-env NODE_ENV=production postcss static/css/tailwind.css --o _site/static/css/style.css"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
     "alpinejs": "^2.6.0",
+    "cross-env": "^7.0.2",
+    "npm-run-all": "^4.1.5",
     "postcss-clean": "^1.1.0",
     "postcss-cli": "^7.1.1",
     "tailwindcss": "^1.7.2"
+  },
+  "dependencies": {
+    "js-yaml": "^3.14.0"
   }
 }
