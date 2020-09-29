@@ -1,0 +1,22 @@
+---
+layout: default
+prism: true
+---
+
+<div class="container max-w-4xl mt-6  px-6">
+    <div class="pb-5 mb-5 border-b border-gray-100">
+        <h1 class="font-bold text-5xl">{{title}}</h1>
+        <p class="text-center text-base leading-6 font-medium text-gray-500">
+            <time>
+                {{ date | readableDate }}
+                by
+                <a>{{ author }}</a>
+
+            </time>
+        </p>
+
+    </div>
+    <article class="prose lg:prose-xl my-4 mx-auto">
+        {{ content | safe }}</article>
+
+</div>

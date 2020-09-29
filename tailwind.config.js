@@ -7,12 +7,15 @@ module.exports = {
     },
   },
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       colors: {},
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
   experimental: "all",
   future: {
     purgeLayersByDefault: true,

@@ -11,3 +11,10 @@ h1 {
 h3 {
   @apply text-2xl font-bold mb-3;
 }
+
+/* Syntax Highlighting*/
+
+body :not(pre) > code[class*="language-"],
+body pre[class*="language-"] {
+  @apply bg-gray-800;
+}
