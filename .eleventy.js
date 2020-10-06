@@ -39,4 +39,10 @@ module.exports = function (eleventyConfig) {
 
   // Copy Image Folder to /_site
   eleventyConfig.addPassthroughCopy("./static/img");
+
+  // Let Eleventy transform HTML files as nunjucks
+  // So that we can use .html instead of .njk
+  return {
+    htmlTemplateEngine: "njk",
+  };
 };
