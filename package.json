@@ -3,8 +3,8 @@
     "start": "npm-run-all --parallel css eleventy",
     "eleventy": "eleventy --serve",
     "debug": "set DEBUG=* & eleventy",
-    "css": "postcss static/css/tailwind.css --o _tmp/static/css/style.css --watch",
-    "build": "cross-env NODE_ENV=production eleventy && cross-env NODE_ENV=production postcss static/css/tailwind.css --o _site/static/css/style.css"
+    "css": "postcss src/static/css/tailwind.css --o _tmp/static/css/style.css --watch",
+    "build": "cross-env NODE_ENV=production eleventy && cross-env NODE_ENV=production postcss src/static/css/tailwind.css --o _site/static/css/style.css"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
