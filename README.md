@@ -21,6 +21,8 @@ Starter Template for **N**etlify CMS, **E**leventy, **A**lphine JS & **T**ailwin
 
 ## Getting Started
 
+Detailed instructions are available in my blog. [Check it out](https://blog.surjithctly.in/neat-stack-create-a-static-website-with-netlify-cms-eleventy-alpinejs-and-tailwindcss)
+
 ### 1\. Clone this Repository
 
 ```
