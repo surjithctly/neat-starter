@@ -1,3 +1,5 @@
+
+const lib = require("./src/static/js/lib");
 const yaml = require("js-yaml");
 const { DateTime } = require("luxon");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
@@ -10,12 +12,23 @@ module.exports = function (eleventyConfig) {
   // Merge data instead of overriding
   eleventyConfig.setDataDeepMerge(true);
 
+  // is this value an object?
+  eleventyConfig.addFilter("type", lib.getTypeof);
+
+  // sort as numbers
+  eleventyConfig.addFilter("sortNumerically", lib.sortNumerically);
+
   // human readable date
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
       "dd LLL yyyy"
     );
   });
+
+  // Alias `layout: module` to `layout: layouts/modules.html`
+  eleventyConfig.addLayoutAlias("module", "layouts/module.html");
+  // Alias `layout: landing` to `layout: layouts/landing.html`
+  eleventyConfig.addLayoutAlias("landing", "layouts/landing.html");
 
   // Syntax Highlighting for Code blocks
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -39,6 +52,9 @@ module.exports = function (eleventyConfig) {
 
   // Copy favicon to route of /_site
   eleventyConfig.addPassthroughCopy("./src/favicon.ico");
+
+  // Copy font to route of /_site
+  eleventyConfig.addPassthroughCopy("./src/static/fonts/Inter.var.woff2");
 
   // Minify HTML
   eleventyConfig.addTransform("htmlmin", function (content, outputPath) {

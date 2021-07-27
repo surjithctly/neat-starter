@@ -1,0 +1,24 @@
+---
+layout: landing
+title: Modules
+date: 2021-07-02
+---
+
+{% set moduleList = collections.module %}
+
+{% for module in moduleList | reverse %}
+    <article class="overflow-hidden text-gray-200 rounded-md">
+        <a class="flex items-center px-8 py-6 bg-gray-900 group" href="{{ module.url | url }}">
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-gray-300" width="20" height="20" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                {{ module.data.iconPath | safe }}
+            </svg>
+            <span class="ml-8 font-serif text-3xl font-black text-gray-300 group-hover:text-white">
+                {% if module.data.title %}
+                    {{ module.data.title }}
+                {% else %}
+                Coming soon
+                {% endif %}
+            </span>
+        </a>
+    </article>
+{% endfor %}

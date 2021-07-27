@@ -1,0 +1,23 @@
+---
+layout: default
+prism: true
+templateClass: themeColor
+---
+
+{% include "../partials/module-list.html" %}
+<div class="relative px-6 mx-auto xl:grid-cols-8 xl:grid xl:space-x-16 xl:px-0 max-w-screen-2xl">
+    <div class="relative xl:col-span-1"></div>
+    <section class="mt-20 xl:col-span-7">
+        <div class="flex items-center">
+
+            {# <h1 class="font-serif text-4xl font-black text-blue-400">{{ title }}</h1> #}
+            <h1 class="font-serif text-4xl font-black text-gray-400">{{ title }}</h1>
+            {# <p class="mt-2 text-xs font-light text-gray-300">
+                <time>{{ date | readableDate }}</time>
+            </p> #}
+
+        </div>
+        <div class="">{{ content | safe }}</div>
+        <div class="fixed inset-0 z-10 w-screen h-screen bg-black bg-opacity-75 xl:hidden" x-show.transition="sideBar" x-cloak="x-cloak"></div>
+    </section>
+</div>

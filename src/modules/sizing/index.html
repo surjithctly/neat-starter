@@ -1,0 +1,19 @@
+---
+title: Sizing
+date: 2020-09-01
+themeColor: pink
+tags:
+  - module
+iconPath:   <path fill="currentColor" d="M18 11h-6a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1v-6a1 1 0 00-1-1zM8 3v2c0 1.656-1.344 3-3 3H3v8a1 1 0 001 1h5v-5c0-1.656 1.345-3 3-3h5V4a1 1 0 00-1-1H8zM2 6h3.013c.112-.002.219-.022.319-.057l.012-.004A1 1 0 006 5V2a1 1 0 00-1-1H2a1 1 0 00-1 1v3a1 1 0 001 1z"/>
+---
+
+<div class="">
+  {% for key, value in tw.global.spacing %}
+  <div class="relative text-white ">
+    {# <p class="absolute left-0 transform -rotate-45 -top-8 d-block whitespace-nowrap">{{ key }} {{ value }}</p> #}
+    <div class="mt-8 h-2 w-{{ key }} bg-pink-700"></div>
+  </div>
+  {% endfor %}
+</div>
+
+
