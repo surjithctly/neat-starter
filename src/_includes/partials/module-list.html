@@ -1,6 +1,7 @@
 {% set moduleList = collections.module %}
 
-<nav class="fixed top-0 left-0 z-20 h-full transition duration-300 origin-left transform bg-gray-800 shadow-2xl ease-standard ease xl:top-32 xl:mt-20 w-80 xl:h-auto xl:sticky xl:transition-none xl:shadow-none xl:bg-transparent xl:translate-x-0" :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" @click.away="sideBar = false">
+{# <nav class="fixed top-0 left-0 z-20 h-full transition duration-300 origin-left transform bg-gray-800 shadow-2xl ease-standard ease xl:top-32 xl:mt-20 xl:h-auto xl:sticky xl:transition-none xl:shadow-none xl:bg-transparent xl:translate-x-0" :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" @click.away="sideBar = false"> #}
+<nav>
     <button @click="sideBar = !sideBar" class="absolute overflow-hidden rounded-md top-16 group xl:hidden" type="button" title="Module list" :class="{ '-right-28 transition duration-500' : sideBar, '-right-36' : !sideBar }">
         <div class="flex items-center justify-center w-32 h-16">
             <span class="flex items-center justify-center w-8 h-8 bg-gray-800 rounded-md group-hover:bg-blue-700" :class="{ 'transition duration-500 bg-gray-800' : !sideBar, 'transition duration-500 bg-blue-700' : sideBar }">
