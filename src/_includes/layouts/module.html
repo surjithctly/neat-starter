@@ -5,19 +5,18 @@ templateClass: themeColor
 ---
 
 {# <div class="fixed top-0 left-0 z-20 h-full transition duration-300 origin-left transform bg-gray-800 shadow-2xl ease-standard ease 2xl:top-32 2xl:mt-20 2xl:h-auto 2xl:sticky 2xl:transition-none 2xl:shadow-none 2xl:bg-transparent 2xl:translate-x-0 " :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" @click.away="sideBar = false"> #}
-<div class="xl:bg-gray-850 xl:top-32 xl:mt-20 xl:w-64 xl:h-full xl:sticky xl:transition-none xl:shadow-none xl:bg-transparent xl:translate-x-0 " :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" @click.away="sideBar = false">
-    {% include "../partials/module-list.html" %}
-</div>
-{# <div class="relative flex grid grid-cols-12 px-6 mx-auto max-w-screen-2xl"> #}
-<div class="max-w-screen-lg px-6 mx-auto ml-auto">
-    <section class="">
-        <div class="flex items-center">
-            <h1 class="font-serif text-4xl font-black text-gray-400">{{ title }}</h1>
-            {# <p class="mt-2 text-xs font-light text-gray-300">
-                <time>{{ date | readableDate }}</time>
-            </p> #}
-        </div>
-        <div class="">{{ content | safe }}</div>
-        <div class="fixed inset-0 z-10 w-screen h-screen bg-black bg-opacity-75 xl:hidden" x-show.transition="sideBar" x-cloak="x-cloak"></div>
-    </section>
-</div>
+
+<main x-data="{ sideBar: false }" class="relative flex">
+    <div class="fixed top-0 z-20 flex-shrink-0 h-full p-8 origin-left transform -translate-x-full bg-gray-800 shadow-inner xl:h-auto xl:relative w-80 xl:translate-x-0"
+        :class="{ '-translate-x-full' : !sideBar, 'translate-x-0 transition duration-300' : sideBar }" @click.away="sideBar = false">
+            {% include "../partials/module-list.html" %}
+    </div>
+
+    <div class="flex-grow max-w-screen-xl p-8 mx-auto mt-16">
+        <h1 class="font-serif text-4xl font-black text-gray-400">
+            {{- title -}}
+        </h1>
+        {{ content | safe }}
+    </div>
+    <div class="fixed inset-0 z-10 w-screen h-screen bg-black bg-opacity-75 xl:hidden" x-show.transition="sideBar" x-cloak="x-cloak"></div>
+</main>
