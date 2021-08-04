@@ -1,43 +1,48 @@
 {% set moduleList = collections.module %}
 
-{# <nav class="fixed top-0 left-0 z-20 h-full transition duration-300 origin-left transform bg-gray-800 shadow-2xl ease-standard ease xl:top-32 xl:mt-20 xl:h-auto xl:sticky xl:transition-none xl:shadow-none xl:bg-transparent xl:translate-x-0" :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" @click.away="sideBar = false"> #}
-<nav class="stick top-16">
-    
-    <div class="absolute top-0 w-full h-16 bg-black -right-full">
-        <button @click="sideBar = !sideBar" class="absolute overflow-hidden bg-red-900 rounded-md top-3 group lg:hidden" type="button" title="Module list"
-            :class="{ '' : sideBar, '' : !sideBar }"
-        >
-            <div class="flex items-center justify-center px-2 py-1">
-                <span class="flex items-center justify-center w-8 h-8 bg-gray-800 rounded-md group-hover:bg-blue-700" :class="{ 'transition duration-500 bg-gray-800' : !sideBar, 'transition duration-500 bg-blue-700' : sideBar }">
-                    <svg class="w-5 h-5 overflow-hidden text-white " fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path :class="{ 'transition transform duration-500 opacity-1 rotate-0' : !sideBar, 'transition transform duration-500 opacity-0 -rotate-45' : sideBar }" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                        <path :class="{ 'transition transform duration-500 opacity-0 rotate-45' : !sideBar, 'transition transform duration-500 opacity-1 rotate-0' : sideBar }" fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 5.29289C13.0976 5.68342 13.0976 6.31658 12.7071 6.70711L9.41421 10L12.7071 13.2929C13.0976 13.6834 13.0976 14.3166 12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L7.29289 10.7071C6.90237 10.3166 6.90237 9.68342 7.29289 9.29289L11.2929 5.29289C11.6834 4.90237 12.3166 4.90237 12.7071 5.29289Z" fill="currentColor"/>
-                    </svg>
-                </span>
-            {# <span
-                class="inline-block ml-2 text-xs text-gray-400 uppercase"
-                :class="{ 'opacity-0 transition duration-200' : sideBar }"
-                >
-                Module List
-            </span>
+<div x-data="{ showAllSubmenus: $persist(true) }" x-cloak="x-cloak">
+    <div class="p-3">
+        <div class="relative flex px-4 py-3 border border-gray-700">
+            <span class="absolute px-2 text-xs text-gray-200 left-2 -top-2 bg-gray-850">Menu settings</span>
+            <div class="relative flex justify-between w-full mt-1">
+                <label for="menu-depth" class="flex items-center justify-between w-full hover:cursor-pointer">
+                    <span class="flex items-center w-8 h-6">
+                        <span class="z-0 w-8 h-[2px] transition-all duration-300 delay-100 bg-gray-600 rounded-full top-6" :class="{ 'bg-gray-200': showAllSubmenus }"></span>
+                        <span class="absolute z-10 block w-4 h-4 transition-all duration-300 ease-linear transform border-2 border-gray-400 rounded-full shadow-solid bg-gray-850" :class="{ 'translate-x-0 border-2' : !showAllSubmenus, 'translate-x-full border-8 border-blue-500 bg-blue-700 bg-opacity-75' : showAllSubmenus }"></span>
+                    </span>
+                    <span class="ml-4 text-xs text-gray-400">Show all submenus</span>
+                </label>
+                <input type="checkbox" id="menu-depth" name="menu-depth" class="invisible block w-0 h-0 appearance-none hover:cursor-pointer active:outline-none focus:outline-none" @click="showAllSubmenus === true ? showAllSubmenus = false : showAllSubmenus = true"/>
             </div>
-            <span class="sr-only">Module list</span> #}
-        </button>
+        </div>
     </div>
-    
-    <ul class="mt-0 font-medium text-gray-500 text-md" aria-label="Main Navigation">
-        {% for module in moduleList | reverse %}
-            <li>
-                <a class="{% if module.url === page.url %}bg-gray-700 xl:rounded-md bg-opacity-50 hover:bg-opacity-50 text-white border-l-8 border-blue-500 {% else %}border-transparent {% endif %} border-l-8 flex items-center h-10 text-gray-200 transition cursor-pointer group hover:bg-gray-700 hover:bg-opacity-20 hover:text-white" href="{{ module.url | url }}">
-                    <div class="flex items-center justify-center w-12 h-full {% if module.url === page.url %}bg-blue-500 bg-opacity-20 {% endif %}">
-                        <svg class="{% if module.url === page.url %}text-gray-100 {% endif %} flex-shrink-0 w-5 h-5 text-gray-600 transition group-hover:text-gray-100" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
-                            {{ module.data.iconPath | safe }}
-                        </svg>
+    <nav class="z-0 overflow-hidden">
+        <ul class="h-[1000px] divide-y divide-gray-900 pb-16 mt-0 overflow-y-auto font-medium text-gray-500 text-md" aria-label="Main Navigation">
+
+            {% for module in moduleList | reverse %}
+                {% set currentModule = module %}
+                
+                <li class="-mt-px" x-data="{ open : false }">
+                    <div class="flex justify-between group">
+                        <a class="flex-grow {% if module.url === page.url %}bg-gray-700 bg-opacity-50 text-white border-l-8 border-blue-500 {% else %}border-transparent {% endif %} border-l-8 flex items-center h-10 text-gray-200 transition cursor-pointer group  hover:text-white" href="{{ module.url | url }}">
+                            <div class="flex items-center justify-center w-10 h-full {% if module.url === page.url %}bg-blue-500 bg-opacity-20 {% endif %}">
+                                <svg class="{% if module.url === page.url %}text-gray-100 {% endif %} flex-shrink-0 w-5 h-5 text-gray-600 transition group-hover:text-gray-100" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
+                                    {{ module.data.iconPath | safe }}
+                                </svg>
+                            </div>
+                            <span class="inline-block w-px h-10 mr-4 bg-gray-900"></span>
+                            <span class="">{{ module.data.title }}</span>
+                        </a>
                     </div>
-                    <span class="inline-block w-px h-10 mr-4 bg-gray-800"></span>
-                    <span class="">{{ module.data.title }}</span>
-                </a>
-            </li>
-            {% endfor%}
-        </ul>
-    </nav>
+                    <div x-show="{% if module.url === page.url %}!showAllSubmenus || showAllSubmenus {% else %}showAllSubmenus {% endif %}">
+                        <div>
+                            <div class="py-4 pl-12 pr-3 bg-gray-850">
+                                {{ currentModule.data.content | toc | safe }}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor%}
+            </ul>
+        </nav>
+    </div>

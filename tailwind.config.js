@@ -28,6 +28,11 @@ module.exports = {
           900: '#18181b',
         },
       },
+      boxShadow: {
+        solid: '0 0 0 4px #202023',
+        'inner-xl': 'inset 1px 0px 8px rgba(0,0,0,.2)',
+        inset: 'inset 0 1px 2px rgba(0,0,0,.1), inset 0 -1px 1px rgba(255,255,255,.05)'
+      },
       fontFamily: {
         sans: [
           '"Inter var"',
@@ -51,6 +56,7 @@ module.exports = {
         ]
       },
     },
+    
     transitionTimingFunction: {
       DEFAULT: 'cubic-bezier(0, 0.3, 0, 1)',
     }

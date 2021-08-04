@@ -1,7 +1,6 @@
 ---
 title: Typography
 date: 2020-09-01
-themeColor: green
 tags:
   - module
 iconPath: <path fill="currentColor" fill-rule="nonzero" d="M17.053 8.451v.974c-.719-.852-1.456-1.218-2.466-1.218-2.037 0-3.61 1.742-3.61 4.009 0 2.303 1.556 4.027 3.644 4.027 1.028 0 1.764-.366 2.432-1.219v.975h2.069V8.451h-2.069zM8.562 13.54l.976 2.459h2.379L7.124 4.127H5.447L.5 15.999h2.362l1.027-2.459h4.673zm6.642-3.435c1.164 0 2.071.942 2.071 2.146 0 1.134-.941 2.094-2.071 2.094-1.148 0-2.09-.942-2.09-2.129 0-1.169.925-2.111 2.09-2.111zM7.86 11.712H4.608l1.66-4.186 1.592 4.186z"/>
@@ -19,7 +18,7 @@ iconPath: <path fill="currentColor" fill-rule="nonzero" d="M17.053 8.451v.974c-.
   {% endfor %}
 </div>
 
-<h2 id="tester" class="mt-16 text-4xl text-white">Font weight</h2>
+<h2 id="tester2" class="mt-16 text-4xl text-white">Font weight</h2>
 <div class="">
   {% for key, value in tw.global.fontWeight %}
   <p class="mt-16 text-gray-200 font-{{ key }} leading-none {% if not loop.first %} mt-12{% endif %}">
@@ -37,7 +36,7 @@ iconPath: <path fill="currentColor" fill-rule="nonzero" d="M17.053 8.451v.974c-.
   {% endfor %}
 </div>
 
-<h2 id="tester" class="mt-16 text-4xl text-white">Line height</h2>
+<h2 id="tester3" class="mt-16 text-4xl text-white">Line height</h2>
 <div class="grid grid-cols-12 gap-8">
   {% for key, value in tw.global.lineHeight %}
   <p class="col-span-4 mt-16 text-lg text-gray-500 leading-{{ key }} {% if not loop.first %} mt-12{% endif %}" style="background-image: linear-gradient(blue 0, blue 1.0em, red 1em)">

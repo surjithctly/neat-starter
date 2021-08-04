@@ -16,11 +16,28 @@
       <link rel="stylesheet" type="text/css" href="/static/css/prism-tomorrow.css">
     {% endif %} #}
   </head>
-  <body class="font-sans bg-gray-800">
-    {% include "./partials/header.html" %}
-    {{ content | safe }}
-    {% include "./partials/footer.html" %}
-    <script src="/static/js/alpine.js"></script>
+  <body class="font-sans bg-gray-800 top-16">
+      {% include "./partials/header.html" %}
+      {{ content | safe }}
+      {% include "./partials/footer.html" %}
+    <!-- Alpine Plugins -->
+    {# <script src="/static/js/alpine-persist.js"></script> #}
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Core -->
+    {# <script defer src="/static/js/alpine.js"></script> #}
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+     {# document.addEventListener('alpine:init', () => {
+        Alpine.store('showAllSubmenus', {
+            on: false,
+
+            toggle() {
+                this.on = ! this.on
+            }
+        })
+    }) #}
+    </script>
+    
     {% if path == "home" %}
       <!-- Netlify Identity Widget -->
       <!-- Needed only if you are using Netlify Identity feature -->

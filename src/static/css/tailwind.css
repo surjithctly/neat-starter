@@ -1,12 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @font-face {
-    font-family: 'Inter var';
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-    font-named-instance: 'Regular';
-    src: url("/static/fonts/Inter.var.woff2") format("woff2");
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url("/static/fonts/Inter.var.woff2") format("woff2");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:target:before {
+  content: "";
+  display: block;
+  height: 6rem;
+  margin-top: -6rem;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+.page-toc {
+  li {
+    @apply flex items-center;
+    &::before {
+      content: "#";
+      @apply mr-3 font-serif text-sm text-gray-700 text-blue-500;
+    }
+    &:hover {
+      &::before {
+        @apply text-blue-500;
+      }
+    }
   }
+  a {
+    @apply flex-grow pl-3 my-1 text-sm text-gray-400 border-l-4 border-transparent;
+    &:hover {
+        @apply text-white border-blue-500;
+    }
+  }
+}

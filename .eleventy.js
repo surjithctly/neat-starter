@@ -3,6 +3,7 @@ const lib = require("./src/static/js/lib");
 const yaml = require("js-yaml");
 const { DateTime } = require("luxon");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const pluginTOC = require('eleventy-plugin-toc');
 const htmlmin = require("html-minifier");
 
 module.exports = function (eleventyConfig) {
@@ -18,6 +19,19 @@ module.exports = function (eleventyConfig) {
   // sort as numbers
   eleventyConfig.addFilter("sortNumerically", lib.sortNumerically);
 
+  // sort group - ascending
+  eleventyConfig.addFilter("sortAsc", lib.sortAsc);
+
+  // object to array
+  eleventyConfig.addFilter("toArray", lib.toArray);
+
+  // adds page-level TOC
+  eleventyConfig.addPlugin(pluginTOC, {
+    tags: ['h2', 'h3'],
+    wrapper: 'div',
+    wrapperClass: 'page-toc'
+  })
+
   // human readable date
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
@@ -29,7 +43,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addLayoutAlias("module", "layouts/module.html");
   // Alias `layout: landing` to `layout: layouts/landing.html`
   eleventyConfig.addLayoutAlias("landing", "layouts/landing.html");
-
   // Syntax Highlighting for Code blocks
   eleventyConfig.addPlugin(syntaxHighlight);
 
@@ -43,6 +56,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "./src/admin/config.yml": "./admin/config.yml",
     "./node_modules/alpinejs/dist/alpine.js": "./static/js/alpine.js",
+    "./src/static/js/@alpinejs.persist.min.js": "./static/js/alpine-persist.js",
     "./node_modules/prismjs/themes/prism-tomorrow.css":
       "./static/css/prism-tomorrow.css",
   });

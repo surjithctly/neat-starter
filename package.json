@@ -10,8 +10,9 @@
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
+    "@alpinejs/persist": "^3.2.2",
     "@tailwindcss/typography": "^0.3.1",
-    "alpinejs": "^2.6.0",
+    "alpinejs": "^3.2.2",
     "autoprefixer": "^10.2.6",
     "browser-sync": "^2.26.14",
     "cross-env": "^7.0.2",
@@ -26,6 +27,8 @@
     "tailwindcss": "^2.2.4"
   },
   "dependencies": {
-    "@ryangjchandler/alpine-clipboard": "^2.0.0"
+    "@ryangjchandler/alpine-clipboard": "^2.0.0",
+    "eleventy-plugin-toc": "^1.1.0",
+    "postcss-nested": "^5.0.5"
   }
 }
