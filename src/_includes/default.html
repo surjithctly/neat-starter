@@ -12,24 +12,36 @@
     {% endif %}
     {% block head %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-    {% if prism == true %}
+    {# {% if prism == true %}
       <link rel="stylesheet" type="text/css" href="/static/css/prism-tomorrow.css">
-    {% endif %}
+    {% endif %} #}
   </head>
-  <body>
-    {% include "./partials/navbar.html" %}
+  <body class="font-sans bg-gray-800">
+      {# {% include "./partials/header.html" %} #}
+      {# {{ content | safe }} #}
+      {# {% include "./partials/footer.html" %} #}
+    <!-- Alpine Plugins -->
+    {# <script src="/static/js/alpine-persist.js"></script> #}
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Core -->
+    {# <script defer src="/static/js/alpine.js"></script> #}
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+     {# document.addEventListener('alpine:init', () => {
+        Alpine.store('showAllSubmenus', {
+            on: false,
 
-    {{ content | safe }}
-
-    {% include "./partials/footer.html" %}
-
-    <script src="/static/js/alpine.js"></script>
-
+            toggle() {
+                this.on = ! this.on
+            }
+        })
+    }) #}
+    </script>
+    
     {% if path == "home" %}
       <!-- Netlify Identity Widget -->
       <!-- Needed only if you are using Netlify Identity feature -->
       <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     {% endif %}
-
   </body>
 </html>

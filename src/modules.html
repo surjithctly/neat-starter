@@ -1,0 +1,24 @@
+---
+layout: base
+title: Modules
+date: 2021-07-02
+---
+
+{% macro get(module) %}
+    <h2 id="{{ module }}" class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-400">{{ module }}</h2>
+    {% include ["./modules/", module, ".html"] | join %}
+{% endmacro %}
+
+{% set moduleList = modules.pages %}
+{% for module in moduleList %}
+    {% if loop.first %}
+        {% set displayClass = '' %}
+    {% else %}
+        {% set displayClass = 'inactive' %}
+    {% endif %}
+    <div 
+        id="module-{{ module.id }}"
+        x-transition
+        class="{{ displayClass }} module"
+    >{{ get(module.id) }}</div>
+{% endfor %}

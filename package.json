@@ -3,15 +3,17 @@
     "start": "npm-run-all --parallel css eleventy browsersync",
     "eleventy": "eleventy --watch",
     "debug": "set DEBUG=* & eleventy",
-    "css": "postcss src/static/css/tailwind.css --o _site/static/css/style.css --watch",
+    "css": "TAILWIND_MODE=watch postcss src/static/css/tailwind.css --o _site/static/css/style.css --watch",
     "build": "cross-env NODE_ENV=production eleventy && cross-env NODE_ENV=production postcss src/static/css/tailwind.css --o _site/static/css/style.css",
     "browsersync": "browser-sync start --server '_site' --files '_site' --port 8080 --no-notify --no-open"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
+    "@alpinejs/persist": "^3.2.2",
     "@tailwindcss/typography": "^0.3.1",
-    "alpinejs": "^2.6.0",
+    "alpinejs": "^3.2.2",
+    "autoprefixer": "^10.2.6",
     "browser-sync": "^2.26.14",
     "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
@@ -19,12 +21,14 @@
     "js-yaml": "^3.14.0",
     "luxon": "^1.25.0",
     "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
     "prismjs": "^1.21.0",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.2.4"
   },
   "dependencies": {
-    "autoprefixer": "^10.1.0",
-    "postcss": "^8.2.1"
+    "@ryangjchandler/alpine-clipboard": "^2.0.0",
+    "eleventy-plugin-toc": "^1.1.0",
+    "postcss-nested": "^5.0.5"
   }
 }

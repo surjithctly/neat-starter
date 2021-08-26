@@ -1,20 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/*Your Custom CSS Goes here*/
-
-h1 {
-  @apply text-4xl tracking-tighter mb-3 text-center lg:text-7xl;
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url("/static/fonts/Inter.var.woff2") format("woff2");
 }
 
-h3 {
-  @apply text-2xl font-bold mb-3;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Syntax Highlighting*/
+:target:before {
+  content: "";
+  display: block;
+  height: 6rem;
+  margin-top: -6rem;
+}
 
-body :not(pre) > code[class*="language-"],
-body pre[class*="language-"] {
-  @apply bg-gray-800;
+[x-cloak] {
+  display: none !important;
+}
+
+.page-toc {
+  li {
+    @apply flex items-center relative;
+    &::before {
+      content: "#";
+      @apply absolute left-3 mr-3 font-serif text-sm text-transparent;
+    }
+    &:hover {
+      &::before {
+        @apply text-current;
+      }
+    }
+  }
+  a {
+    @apply flex-grow pl-12 my-1 text-sm text-gray-400 border-l-2 border-transparent bg-transparent;
+    &:hover {
+        @apply border-current text-current text-white bg-opacity-5;
+    }
+  }
+}
+
+@keyframes TO-ACTIVE {
+  0% {
+    display: none;
+  }
+  0.25% {
+    opacity: 0;
+    display: block;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes TO-INACTIVE {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  
+  99.75% {
+    opacity: 0;
+  }
+  100% {
+    display: none;
+  }
+}
+.module.active {
+  opacity: 0;
+  display: block;
+  animation: TO-ACTIVE 450ms forwards;
+}
+
+.module.inactive {
+  opacity: 1;
+  display: none;
+  animation: TO-INACTIVE 450ms forwards;
 }

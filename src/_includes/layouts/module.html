@@ -1,0 +1,12 @@
+{# ---
+layout: base
+prism: true
+templateClass: themeColor
+---
+
+<section @click="moduleNav = false" class="flex-grow p-8 mx-auto max-w-screen-2xl" x-cloak>
+    <h1 class="text-2xl font-medium text-gray-200">
+        {{- title -}}
+    </h1>
+    {{- content | safe -}}
+</section> #}

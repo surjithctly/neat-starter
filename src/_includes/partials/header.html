@@ -1,0 +1,18 @@
+<header class="fixed z-20 w-full px-8 bg-gray-800 border-b border-gray-900">
+    <div class="flex items-center justify-between h-16">
+        <button label="module navigation" type="button">NAV</button>
+        <a class="text-white xl:ml-0" href="/">
+            Flight Plan
+        </a>
+        <nav class="flex list-none">
+            {% if navigation.items %}
+                {% for item in navigation.items %}
+                    <a class="relative justify-between text-sm ml-8 text-gray-400 py-2 {{ 'text-white font-medium' if item.url in page.url }}" href="{{ item.url }}">
+                        <span>{{ item.label }}</span>
+                        <span class="{{ 'hidden' if not item.url in page.url }} block absolute left-0 w-full h-px bg-gray-500 -bottom-3"></span>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </nav>
+    </div>
+</header>

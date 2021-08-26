@@ -1,9 +1,9 @@
-<div class="w-full max-w-2xl grid grid-cols-1 lg:grid-cols-2 gap-4 my-8 px-4 lg:mx-0">
+<div class="grid w-full grid-cols-1 gap-4 px-4 mx-auto my-8 max-w-screen-2xl lg:grid-cols-2 lg:mx-0">
 
     {% if quicklinks.links %}
 
         {% for item in quicklinks.links %}
-            <a href="{{item.url}}" target="_blank" class="p-5 border rounded border-gray-200 hover:border-purple-400">
+            <a href="{{item.url}}" target="_blank" class="p-5 border border-gray-200 rounded hover:border-purple-400">
                 <h3>{{item.title}}
                     →</h3>
                 <p>{{item.desc}}</p>
