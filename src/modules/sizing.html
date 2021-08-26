@@ -1,0 +1,23 @@
+<h3 class="mt-8 text-xl font-bold text-gray-600 md:text-2xl xl:text-3xl" id="size-intervals">Generic sizing scale</h3>
+<h4 class="mt-4 text-lg text-gray-600">Usage</h4>
+<p class="max-w-screen-sm mt-2 text-xs text-gray-500 md:text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore illo dolores facere magnam maxime atque eum necessitatibus enim.
+</p>
+
+<div class="flex pb-2 mt-4 text-xs text-right text-gray-500 border-gray-200 md:mt-6 xl:mt-8 md:text-sm xl:text-md md:border-b">
+  <span class="hidden w-8 md:block md:w-12">key</span>
+  <span class="hidden w-24 md:block">value</span>
+  <span class="hidden w-12 md:block">px</span>
+</div>
+
+<ul class="mt-3 text-xs text-gray-600 md:text-sm xl:text-base md:mt-4 xl:mt-8">
+  {% for key, value in tw.global.spacing %}
+    <li class="flex items-center mt-1 text-right md:mt-2 xl:mt-3">
+      <span class="block w-8 font-mono font-bold md:w-12">{{ key }}</span>
+      <span class="hidden w-24 md:block">{{ value }}</span>
+      <span class="hidden w-12 md:block">{{ loop.index }}</span>
+      <div class="relative flex-grow h-2 ml-8 bg-gray-100 bg-opacity-75 rounded md:h-3 xl:h-4 inset-measure">
+        <div class="absolute h-2 md:h-3 xl:h-4 top-0 rounded w-{{ key }} bg-fp-primary"></div>
+      </div>
+    </li>
+  {% endfor %}
+</ul>

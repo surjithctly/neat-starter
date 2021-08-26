@@ -4,13 +4,16 @@ module.exports = {
   mode: 'jit',
   purge: [
     './src/**/*.html',
-    './_site/**/*.html'
+    './_site/**/*.html',
+    './src/_data/themeColorStrings.js'
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: true, // or 'media' or 'class'
   theme: {
     extend: {
       screens: {
-        "3xl": "1920px"
+        "3xl": "1920px",
+        "4xl": "2160px",
+        "fp": "calc(512px + 66.667%)"
       },
       colors: {
         gray: {
@@ -27,6 +30,11 @@ module.exports = {
           850: '#202023',
           900: '#18181b',
         },
+        fp: {
+          "primary-dark": colors.blue['300'],
+          "primary": colors.blue['500'],
+          "primary-light": colors.blue['700'],
+        }
       },
       boxShadow: {
         solid: '0 0 0 4px #202023',
@@ -53,13 +61,21 @@ module.exports = {
         ],
         serif: [
           "Gazpacho Black"
+        ],
+        serif: [
+          "Cascadia Code"
         ]
       },
+      fontSize: {
+        h2: ['clamp(1.125rem, 3vw, 2rem)', { lineHeight: 'clamp(1.75rem, 1.275rem, 1rem)'}],
+        p: ['clamp(0.75rem, 2vw, 1.125rem)', { lineHeight: 'clamp(1.75, 1.5, 1.25)'}],
+        lede: ['clamp(1rem, 3vw, 1.5rem)', { lineHeight: 'clamp(1, 1.5, 1.375)'}],
+      }
     },
-    
-    transitionTimingFunction: {
-      DEFAULT: 'cubic-bezier(0, 0.3, 0, 1)',
-    }
+     
+    // transitionTimingFunction: {
+    //   DEFAULT: 'cubic-bezier(0, 0.3, 0, 1)',
+    // }
   },
   variants: {
     extend: {},

@@ -1,32 +1,12 @@
----
-layout: default
+{# ---
+layout: base
 prism: true
 templateClass: themeColor
 ---
 
-<main x-data="{ sideBar: false }" class="relative flex top-16">
-    <div class="absolute inset-0 z-10 flex-shrink-0 transition duration-300 ease-linear transform -translate-x-full border-r border-gray-900 bg-gray-850 xl:translate-x-0 xl:relative w-80" 
-        :class="{ '-translate-x-full' : !sideBar, 'translate-x-0' : sideBar }" 
-        @click.away="sideBar = false"
-    >
-        <div class="sticky top-16">
-            <button class="absolute -right-12 xl:hidden" 
-                @click="sideBar = ! sideBar">
-                <span class="flex items-center justify-center w-12 h-12 bg-gray-800 bg-opacity-50 backdrop-blur-sm group-hover:bg-blue-700" :class="{ 'transition duration-500 bg-gray-800' : !sideBar, 'transition duration-500 bg-blue-700' : sideBar }">
-                    <svg class="w-6 h-6 overflow-hidden text-white" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="currentColor" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                        <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 5.29289C13.0976 5.68342 13.0976 6.31658 12.7071 6.70711L9.41421 10L12.7071 13.2929C13.0976 13.6834 13.0976 14.3166 12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L7.29289 10.7071C6.90237 10.3166 6.90237 9.68342 7.29289 9.29289L11.2929 5.29289C11.6834 4.90237 12.3166 4.90237 12.7071 5.29289Z"/>
-                    </svg>
-                </span>
-            </button>
-            {% include "../partials/module-list.html" %}
-        </div>
-    </div>
-    <section class="flex-grow max-w-screen-xl p-8 mx-auto">
-        <h1 class="text-2xl font-medium text-gray-200">
-            {{- title -}}
-        </h1>
-        {{- content | safe -}}
-    </section>
-    <div class="fixed inset-0 w-screen h-screen bg-blue-900 backdrop-blur-sm z-5 bg-opacity-20 xl:hidden" x-show.transition="sideBar" x-cloak></div>
-</main>
+<section @click="moduleNav = false" class="flex-grow p-8 mx-auto max-w-screen-2xl" x-cloak>
+    <h1 class="text-2xl font-medium text-gray-200">
+        {{- title -}}
+    </h1>
+    {{- content | safe -}}
+</section> #}

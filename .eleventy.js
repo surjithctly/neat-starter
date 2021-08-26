@@ -16,6 +16,12 @@ module.exports = function (eleventyConfig) {
   // is this value an object?
   eleventyConfig.addFilter("type", lib.getTypeof);
 
+  // remove alpha entities
+  eleventyConfig.addFilter("stripAlpha", lib.stripAlpha);
+
+  // convert rem to px
+  eleventyConfig.addFilter("remToPx", lib.remToPx);
+
   // sort as numbers
   eleventyConfig.addFilter("sortNumerically", lib.sortNumerically);
 
@@ -24,6 +30,13 @@ module.exports = function (eleventyConfig) {
 
   // object to array
   eleventyConfig.addFilter("toArray", lib.toArray);
+
+  // camelCase from hyphens
+  eleventyConfig.addFilter("camelCase", lib.camelCase);
+
+  // get selected elements
+  eleventyConfig.addFilter("getHeadings", lib.getHeadings);
+
 
   // adds page-level TOC
   eleventyConfig.addPlugin(pluginTOC, {
@@ -41,6 +54,8 @@ module.exports = function (eleventyConfig) {
 
   // Alias `layout: module` to `layout: layouts/modules.html`
   eleventyConfig.addLayoutAlias("module", "layouts/module.html");
+  // Alias `layout: module` to `layout: layouts/modules.html`
+  eleventyConfig.addLayoutAlias("base", "base.html");
   // Alias `layout: landing` to `layout: layouts/landing.html`
   eleventyConfig.addLayoutAlias("landing", "layouts/landing.html");
   // Syntax Highlighting for Code blocks
@@ -56,6 +71,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "./src/admin/config.yml": "./admin/config.yml",
     "./node_modules/alpinejs/dist/alpine.js": "./static/js/alpine.js",
+    "./src/static/js/app.js": "./static/js/app.js",
     "./src/static/js/@alpinejs.persist.min.js": "./static/js/alpine-persist.js",
     "./node_modules/prismjs/themes/prism-tomorrow.css":
       "./static/css/prism-tomorrow.css",

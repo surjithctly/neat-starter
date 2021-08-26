@@ -1,0 +1,33 @@
+{% set moduleList = modules.pages %}
+
+<div class="fixed top-0 left-0 z-20 flex flex-col justify-end w-64 transition-all duration-200 ease-in-out bg-gray-100 shadow-2xl xl:w-48 xl:shadow-none xl:translate-x-0 xl:z-10 xl:flex-shrink-0 xl:sticky xl:ml-auto" x-cloak
+    :class="{ '-translate-x-full' : !moduleNav, 'translate-x-0' : moduleNav }"
+>
+    <nav class="z-0 self-stretch min-h-screen pt-12 overflow-hidden xl:min-h-0 xl:sticky xl:top-16">
+        <ul class="pb-16 mt-0 overflow-y-auto font-medium text-gray-500 divide-y text-md" aria-label="Main Navigation">
+
+            {% for module in moduleList %}
+                {% set currentModule = module %}
+
+                <li class="-mt-px" x-data="{ open : false }">
+                    <div class="flex justify-between group">
+                        <a 
+                            href="#{{ module.id }}"
+                            @click="toggleModule( `module-{{ module.id }}` )"
+                            class="flex-grow {% if module.url === page.url %}bg-opacity-5 text-gray-600 border-l-4 {% else %}bg-opacity-0 border-transparent {% endif %}border-l-8 flex items-center h-10 text-gray-500 transition cursor-pointer group text-sm  hover:text-gray-600 hover:bg-gray-400 hover:bg-opacity-5 nav-link" 
+                            :class="`border-${currentColor} bg-${currentColor}`"
+                        >
+                            <div class="flex items-center justify-center w-10 h-full">
+                                <svg class="{% if module.url === page.url %}text-gray-500 opacity-100 {% else %}opacity-0 {% endif %} flex-shrink-0 w-5 h-5 text-gray-400 transition group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
+                                    {{ module.icon | safe }}
+                                </svg>
+                            </div>
+                            {# <span class="inline-block w-px h-10 mr-4 bg-gray-300"></span> #}
+                            <span class="capitalize">{{ module.id }}</span>
+                        </a>
+                    </div>
+                </li>
+                {% endfor%}
+            </ul>
+        </nav>
+    </div>

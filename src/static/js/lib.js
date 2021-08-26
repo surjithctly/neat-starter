@@ -24,33 +24,39 @@ function toArray(object) {
     return Object.entries(object);
 }
 
+function getElements(selectorString) {
+    const results = [
+
+    ]
+    // return document.querySelectorAll(selectorArray);
+    return selectorString;
+}
+
+function camelCase(string) {
+    return string.replace(/-([a-z])/g, (g) => { 
+        return g[1].toUpperCase(); 
+    });
+}
+
+function stripAlpha(content) {
+    return content.replace(/[^0-9.]/g, '');
+}
+
+function remToPx(remValue) {
+    return `${remValue * 16}px`
+}
+
 function sortNumerically(numberArray) {
     numberArray.sort(function (a, b) {
         return a - b;
     });
 };
 
-// // const sortableProperties = {
-// //     "width": "hi"
-// // }
-
-// function sortAsc(sortableGroup) {
-//     const remValues = Object.values(sortableGroup);
-//     remValues.forEach((remValue) => {
-//         remValue = parseFloat((remValue.replace('rem', ''))) * 4;
-//         remValues
-//     })
-//     // const convertedRemValues = 
-//     // const groupAsArray = Object.entries(sortableGroup);
-//     // const remVals = groupAsArray.filter(([key, value]) => !value.includes('px'));
-//     // const convertedRemVals = Object.values((remVals).trim('rem') * 4);
-//     // const pxVals = groupAsArray.filter(([key, value]) => value.includes('px'));
-// //    console.log(remValues);
-// };
-
 module.exports = {
     getTypeof,
     sortNumerically,
     toArray,
-    // sortAsc
-};
+    camelCase,
+    stripAlpha,
+    remToPx
+}
