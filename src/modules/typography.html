@@ -1,11 +1,11 @@
 <div class="grid grid-cols-12 mt-4 md:mt-6 xl:mt-8">
   <div class="col-span-12">
-    <h2 id="typography-primary" class="font-bold text-gray-600 text-h2">Primary font</h2>
-    <span class="inline-block mt-4 text-xl text-gray-500">Inter</span>
+    <h2 id="typography-primary" class="font-bold text-h2">Primary font</h2>
+    <span class="inline-block mt-4 text-xl">Inter</span>
   </div>
   <div class="col-span-12 pr-8">
-    <p class="mt-6 font-medium text-gray-600 text-lede">Inter is a typeface carefully crafted & designed for computer screens.</p>
-    <p class="mt-2 leading-relaxed text-gray-500 md:mt-3 xl:mt-4 text-p font-semilight text-md">
+    <p class="mt-6 font-medium text-lede">Inter is a typeface carefully crafted & designed for computer screens.</p>
+    <p class="mt-2 leading-relaxed md:mt-3 xl:mt-4 text-p font-semilight text-md">
     Inter features a tall x-height to aid in readability of mixed-case and lower-case text. Several OpenType features are provided as well, like contextual alternates that adjusts punctuation depending on the shape of surrounding glyphs.
 </p>
   </div>
@@ -19,39 +19,39 @@
   </div> #}
 </div>
 
-<div class="mt-8 md:mt-12 xl:mt-16 mb-96">
-  <h2 id="typography-scale" class="font-bold text-gray-600 text-h2">Type scale</h2>
+<div class="mt-8 md:mt-12 xl:mt-16">
+  <h2 id="typography-scale" class="font-bold text-h2">Type scale</h2>
 
-  <div class="grid grid-cols-12 pb-2 mt-4 text-gray-500 border-b border-gray-200 md:mt-6 xl:mt-8">
+  <div class="grid grid-cols-12 pb-2 mt-4 text-sm border-b border-gray-200 md:mt-6 xl:mt-8">
       <div class="col-span-6">
-        <span class="px-3 text-sm text-gray-500">class</span>
+        <span class="px-3">scale</span>
       </div>
       <div class="col-span-2 text-right">
-        <span class="px-3 text-sm text-gray-500">class</span>
+        <span class="px-3">class</span>
       </div>
       <div class="col-span-2 text-right">
-        <span class="px-3 text-sm text-gray-500">rem / px</span>
+        <span class="px-3">rem / px</span>
       </div>
       <div class="col-span-2 text-right">
-        <span class="px-3 text-sm text-gray-500">Default line height</span>
+        <span class="px-3">Default line height</span>
       </div>
     </div>
-    <div class="grid grid-cols-12 mt-4">
+    <div class="grid grid-cols-1 mt-4">
       {% for key, value in tw.global.fontSize %}
         {% set lineHeightDisplay = value[1].lineHeight %}
         {% if loop.index % 2 === 0 %}
-          {% set zebraStripe = 'bg-gray-100' %}
+          {% set zebraStripe = 'bg-gray-500 bg-opacity-5' %}
         {% else %}
-          {% set zebraStripe = 'bg-gray-50' %}
+          {% set zebraStripe = '' %}
         {% endif %}
-        <div class="{{ zebraStripe }} flex items-baseline col-span-6 p-3">
-          <div class="text-{{ key }}">Flight plan</div>
+        <div class="{{ zebraStripe }} flex items-baseline col-span-6">
+          <div class="p-3 truncate text-{{ key }}">Flight plan</div>
         </div>
-        <div class="{{ zebraStripe }} flex items-baseline col-span-2 p-3 justify-end">
-          <span class="my-auto font-mono font-bold text-gray-500 ">.text-{{ key }}</span>
+        <div class="{{ zebraStripe }} flex justify-end items-baseline col-span-2 p-3">
+          <span class="my-auto font-mono font-bold">.text-{{ key }}</span>
         </div>
-        <div class="{{ zebraStripe }} flex items-baseline col-span-2 p-3 justify-end">
-          <span class="my-auto ">{{ value[0] }} / <span class="text-xs text-gray-500">{{ value[0] | stripAlpha | remToPx }}</span></span>
+        <div class="{{ zebraStripe }} flex justify-end items-baseline col-span-2 p-3">
+          <span class="my-auto ">{{ value[0] }} / <span class="text-xs">{{ value[0] | stripAlpha | remToPx }}</span></span>
         </div>
         <div class="{{ zebraStripe }} flex items-baseline col-span-2 p-3 justify-end">
           <span class="my-auto ">{{ lineHeightDisplay }}</span>
@@ -59,6 +59,7 @@
       {% endfor %}
     </div>
   </div>
+
 
 {# <div class="" x-data="{ phrase: 'Wizards' }">
   <input type="text" x-model="phrase" x-on:click.away="{ phrase = phrase }"

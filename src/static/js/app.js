@@ -19,7 +19,8 @@ function flightplan() {
     return {
         moduleActive: false,
         moduleList: document.querySelectorAll('.module'),
-        toggleModule(moduleId) {
+        toggleModule(moduleId, el) {
+            el.classList.add('menu-item-active')
             this.moduleList.forEach((module) => {
                 module.classList.add('inactive');
                 module.classList.remove('active');

@@ -1,17 +1,32 @@
-<header class="fixed inset-x-0 z-10 bg-white border drop-shadow-sm border-b-100 xl:relative xl:z-50">
-  <div class="w-full mx-auto 2xl:w-full xl:max-w-screen-fp">
+<header class="fixed inset-x-0 z-10 bg-white dark:bg-gray-900 drop-shadow-sm xl:relative xl:z-50">
+  <div class="flex items-center justify-between w-full pr-4 mx-auto 2xl:w-full 2xl:px-8 xl:max-w-screen-fp">
     <div class="flex items-center w-64 h-12 xl:mr-auto">
-      <button class="flex items-center justify-center w-12 h-12 bg-gray-200 xl:hidden" label="module navigation"
+      <button class="flex items-center justify-center w-12 h-12 xl:hidden" label="module navigation"
         type="button" @click="moduleNav = !moduleNav">
-        <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-            d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"></path>
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
         </svg>
       </button>
-      <a class="flex items-center ml-4 xl:ml-0" href="/">
-        <span class="ml-4 text-xl font-bold text-black 3xl:ml-0">Flight Plan</span>
+      <a class="flex items-center ml-6 xl:ml-0" href="/">
+        <svg class="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+          <path d="M21.002 81.223l25.802 25.843 4.9-4.808-25.902-25.943-4.8 4.908zM124.51 3.495c-7.1-7.112-23.602-2.304-30.702 4.908l-66.406 66.31 9.701 9.715 19.402-19.432 6.5 6.511L43.604 90.84l9.7 9.716 66.306-66.41c7.2-7.111 12.001-23.538 4.9-30.65zm-14.601 37.161l-3.2-3.205c4.5-4.507 4.5-11.72 0-16.127-4.501-4.507-11.701-4.407-16.202 0l-3.2-3.205c6.3-6.31 16.402-6.31 22.602 0 6.301 6.11 6.301 16.327 0 22.537zM36.303 99.754c-1.4-1.403-10.6 5.609-12.101 4.006-1.2-1.202 5.3-10.918 4.1-12.02l-5.7-5.709S-2.5 112.775 6.4 121.589c8.9 8.815 35.602-16.126 35.602-16.126l-5.7-5.71zM14.101 23.428L0 37.551 29.102 66.6l43.704-43.672s-61.105 2.905-58.705.501zM105.01 55.28L61.405 98.952 90.507 128l14.102-14.123c-2.501 2.504.4-58.597.4-58.597z" fill="currentColor"/>
+        </svg>
+        <span class="ml-2 text-sm font-medium tracking-widest uppercase">Flight Plan</span>
       </a>
+    </div>
+    <div class="flex items-center h-6">
+      <span class="mr-2 text-xs font-semilight"
+        x-text="[light === false ? 'dark' : 'light']"
+        :class="[light === false ? 'text-gray-200' : 'text-gray-600']"></span>
+      <div class="relative w-10 h-5 transition-all duration-200 ease-linear rounded-full shadow-solid"
+       :class="[light === false ? 'bg-blue-500' : 'bg-gray-300']">
+        <label for="light"
+           class="absolute left-0 w-5 h-5 transition-all duration-100 ease-linear transform bg-white rounded-full shadow-md cursor-pointer dark:bg-gray-200"
+           :class="[light === false ? 'translate-x-full' : 'translate-x-0']"></label>
+        <input type="checkbox" id="light" name="light"
+           class="w-full h-full appearance-none active:outline-none focus:outline-none hover:cursor-pointer"
+           @click="light = !light"/>
+      </div>
     </div>
   </div>
 </header>

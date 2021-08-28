@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    x-data="{ light: true }"
+    :class="{ 'dark' : light !== true  }"
+>
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
@@ -15,29 +18,49 @@
   </head>
   <body
     x-cloak
-    x-data="setTheme()"
-    x-init="selectColor('blue',500)"
-    class="flex flex-col min-h-screen font-sans bg-gray-50"
+     x-data="{ moduleNav: false }"
+    class="flex flex-col min-h-screen font-sans text-gray-600 dark:text-gray-200"
   >
-    <div
-      x-data="{ moduleNav: false}"
-    >
+    <div x-data="{ currentIndex: 0 }">
       {% include "./blocks/header.html" %}
       <main
         x-data="flightplan()"
-        class="grid min-h-screen grid-cols-12 bg-gray-50"
+        class="grid min-h-screen grid-cols-12 bg-gray-50 dark:bg-gray-700"
       >
-          <div class="bg-gray-100 col-span-0 xl:col-span-2">
-            {% include "./blocks/module-nav.html" %}
-          </div>
-          <div class="col-span-12 p-4 mt-12 border-l border-gray-200 xl:col-span-8 lg:p-8 xl:p-8 xl:mt-0"
+        <div class="bg-gray-100 col-span-0 xl:col-span-2 dark:bg-gray-800 xl:pt-2">
+          {% include "./blocks/module-nav.html" %}
+        </div>
+        <div class="flex flex-col p-6 mt-12 border-l border-gray-500 border-opacity-10 dark:border-opacity-50 dark:border-black md:p-8 xl:col-span-8 xl:p-8 xl:mt-0 2xl:px-12"
             @click="moduleNav = false"
           >
+          <div class="flex-grow mb-24">
             {{ content | safe }}
           </div>
-          <div class="col-span-0 xl:col-span-2">
-            {% include "./blocks/aside.html" %}
-          </div>
+
+          <nav class="grid grid-cols-2 col-span-12 bg-blue-100">
+            <div class="col-span-1">
+              <a class="block w-full p-16 bg-blue-400"
+                :href="`#${moduleList[currentIndex - 1].id}`"
+                x-text="`${moduleList[currentIndex - 1].id}`"
+                x-show="currentIndex >= 1"
+                @click="currentIndex = currentIndex - 1"
+            ></a>
+            
+            </div>
+            <div class="col-span-1">
+              <a class="block w-full p-16 text-right bg-blue-300"
+               :href="`#${moduleList[currentIndex + 1].id}`"
+                x-text="`${moduleList[currentIndex + 1].id}`"
+                x-show="currentIndex < moduleList.length - 1"
+                @click="currentIndex = currentIndex + 1"
+            ></a>
+            </div>
+          </nav>
+        </div>
+
+        <div class="col-span-0 xl:col-span-2">
+          {% include "./blocks/aside.html" %}
+        </div>
       </main>
     </div>
     {# {% include "./blocks/footer.html" %} #}

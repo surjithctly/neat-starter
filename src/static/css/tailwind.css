@@ -17,8 +17,8 @@ html {
 :target:before {
   content: "";
   display: block;
-  height: 6rem;
-  margin-top: -6rem;
+  height: 8rem;
+  margin-top: -8rem;
 }
 
 [x-cloak] {
@@ -72,14 +72,48 @@ html {
     display: none;
   }
 }
+
+@keyframes TO-LIGHT {
+  0% {
+    @apply text-blue-400;
+  }
+  75% {
+    @apply text-indigo-900;
+  }
+}
+
+@keyframes TO-DARK {
+  0% {
+    @apply text-indigo-900;
+  }
+  75% {
+    @apply text-blue-400;
+  }
+}
+
+#theme-rotator {
+  @apply absolute inset-0 overflow-hidden transition-all duration-500 ease-in-out origin-center transform rotate-0;
+  circle {
+    @apply text-blue-400;
+    animation: TO-DARK 750ms ease-in-out fowards;
+  }
+  &.dark {
+    @apply rotate-180 ease-in-out;
+    circle {
+      @apply text-indigo-900;
+      animation: TO-LIGHT 750ms ease-in-out forwards;
+    }
+  }
+}
+
 .module.active {
   opacity: 0;
   display: block;
   animation: TO-ACTIVE 450ms forwards;
 }
 
-.module.inactive {
+/* .module.inactive {
   opacity: 1;
   display: none;
   animation: TO-INACTIVE 450ms forwards;
-}
+} */
