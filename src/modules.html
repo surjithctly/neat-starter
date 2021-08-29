@@ -8,10 +8,18 @@ date: 2021-07-02
     <h1 class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-500 dark:text-gray-400">{{ module }}</h1>
     {% include["./modules/", module, ".html"] | join %}
 {% endmacro %}
-
 {% set moduleList = modules.pages %}
-{% for module in moduleList %}
-    <div id="{{ module.id }}" x-show="currentIndex === {{ loop.index0 }}" class="flex-grow w-full module">{{ get(module.id) }}
-        {% include "./_includes/blocks/section-nav.html" %}
+
+<div class="flex">
+    {# Sidebar nav #}
+    {% include "./_includes/blocks/module-navigation-panel.html" %}
+
+    <div class="flex-grow p-4 bg-gray-700 md:p-8 xl:p-12">
+        {% for module in moduleList %}
+            <div id="{{ module.id }}" x-show="currentIndex === {{ loop.index0 }}" class="max-w-screen-xl">{{ get(module.id) }}</div>
+        {% endfor %}
+        {# Section footer links #}
+        {% include "./_includes/blocks/sequential-navigation-links.html" %}
     </div>
-{% endfor %}
+
+</div>

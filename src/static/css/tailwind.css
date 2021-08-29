@@ -13,6 +13,10 @@
 html {
   scroll-behavior: smooth;
 }
+
+body {
+  background-image: linear-gradient(to right, theme('colors.gray.800') 0,  theme('colors.gray.800') 50%, theme('colors.gray.700') 50%, theme('colors.gray.700') 100%  )
+}
 /* 
 :target:before {
   content: "";

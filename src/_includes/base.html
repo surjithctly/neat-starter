@@ -16,32 +16,24 @@
     {% block head %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
-  <body
-    x-cloak
-     x-data="{ moduleNav: false }"
-    class="flex flex-col min-h-screen font-sans text-gray-600 dark:text-gray-200"
-  >
-    <div x-data="{ currentIndex: 0 }" class="flex-grow">
 
-    {{ currentIndex }}
-      {% include "./blocks/header.html" %}
+  {# x-data="flightplan()" #}
+      
+      {# @click="moduleNav = false" #}
+      {# {% include "./blocks/module-nav.html" %} #}
 
-      <main x-data="flightplan()" class="grid grid-cols-12 bg-gray-50 dark:bg-gray-700">
+  <body x-data="{ moduleNav: false }" class="flex flex-col min-h-screen font-sans text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-200" x-cloak>
 
-        <div class="bg-gray-100 col-span-0 xl:col-span-2 dark:bg-gray-800 xl:pt-2">
-          {% include "./blocks/module-nav.html" %}
-        </div>
-
-        <div class="flex flex-col col-span-12 p-6 mt-12 border-l border-gray-500 place-items-stretch border-opacity-10 dark:border-opacity-50 dark:border-black md:p-8 xl:col-span-10 xl:p-8 xl:mt-0 2xl:px-12"
-            @click="moduleNav = false">
-          {{ content | safe }}
-
-        {# {% include "./blocks/aside.html" %} #}
-
-        </div>
-      </main>
-    </div>
-    {# {% include "./blocks/footer.html" %} #}
+    {# Header #}
+    {% include "./blocks/header.html" %}
+    
+    {# Main content #}
+    <main x-data="{ currentIndex: 0 }" class="w-full mx-auto max-w-screen-4xl">
+        {{content|safe}}
+    </main>
+    
+    {# Footer #}
+    {% include "./blocks/footer.html" %}
 
     <!-- Alpine Plugins -->
     <script defer="defer" src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
@@ -52,7 +44,6 @@
     {% if path == "home" %}
 
       <!-- Netlify Identity Widget -->
-
       <!-- Needed only if you are using Netlify Identity feature -->
       <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     {% endif %}
