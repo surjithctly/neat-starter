@@ -13,13 +13,13 @@
 html {
   scroll-behavior: smooth;
 }
-
+/* 
 :target:before {
   content: "";
   display: block;
   height: 8rem;
   margin-top: -8rem;
-}
+} */
 
 [x-cloak] {
   display: none !important;

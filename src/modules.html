@@ -5,21 +5,13 @@ date: 2021-07-02
 ---
 
 {% macro get(module) %}
-    <h1 id="{{ module }}" class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-500 dark:text-gray-400">{{ module }}</h1>
+    <h1 class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-500 dark:text-gray-400">{{ module }}</h1>
     {% include["./modules/", module, ".html"] | join %}
 {% endmacro %}
 
 {% set moduleList = modules.pages %}
 {% for module in moduleList %}
-    {# {% if loop.first %}
-        {% set displayClass = '' %}
-    {% else %}
-        {% set displayClass = 'inactive' %}
-    {% endif %} #}
-    <div
-        id="module-{{ module.id }}"
-        x-transition
-        x-show="currentIndex === {{ loop.index0 }}"
-        class="h-full module"
-    >{{ get(module.id) }}</div>
+    <div id="{{ module.id }}" x-show="currentIndex === {{ loop.index0 }}" class="flex-grow w-full module">{{ get(module.id) }}
+        {% include "./_includes/blocks/section-nav.html" %}
+    </div>
 {% endfor %}

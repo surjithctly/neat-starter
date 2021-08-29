@@ -4,11 +4,6 @@
 <div class="fixed top-0 left-0 z-20 flex flex-col justify-end w-64 transition-transform duration-200 ease-in-out bg-gray-100 shadow-2xl xl:w-48 dark:bg-gray-800 2xl:w-64 xl:shadow-none xl:translate-x-0 xl:z-10 xl:flex-shrink-0 xl:sticky xl:ml-auto" x-cloak
     :class="{ '-translate-x-full' : !moduleNav, 'translate-x-0' : moduleNav }"
 >
-
-{% set moduleListArr = moduleList | toArray %}
-{{ moduleListArr.length }}
-
-
     <nav class="z-0 self-stretch min-h-screen pt-12 overflow-hidden xl:min-h-0 xl:sticky xl:top-16">
         <ul class="pb-16 mt-0 overflow-y-auto font-medium divide-y divide-gray-500 divide-opacity-10 dark:divide-opacity-30 text-md" aria-label="Main Navigation">
 
