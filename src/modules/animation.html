@@ -2,41 +2,51 @@
 {% set durationsListLength = durations | length %}
 {% set easings = tw.global.transitionTimingFunction %}
 
-<div class="max-w-xs">
-  <div
-    x-data="select({ data: {{durations|dump}}, emptyOptionsMessage: 'No durations match your search.', name: 'duration', placeholder: 'Select a duration' })"
-    x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative">
+<div
+  x-ref="selectComponent"
+  x-data="select({ data: {{durations|dump}}, emptyOptionsMessage: 'No durations match your search.', name: 'duration', placeholder: 'Select a duration' })"
+  x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative"
+  class="mt-16">
+  <div class="max-w-xs">
     <span class="inline-block w-full rounded-md shadow-sm">
       <button x-ref="button" @click="toggleListboxVisibility()" :aria-expanded="open" aria-haspopup="listbox"
-        class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+        class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-gray-800 border-4 border-gray-600 rounded cursor-default focus:outline-none focus:shadow-outline-blue sm:text-sm sm:leading-5">
         <span x-show="! open" x-text="value in options ? options[value] : placeholder"
           :class="{ 'text-gray-500': ! (value in options) }" class="block truncate"></span>
-
         <input x-ref="search" x-show="open" x-model="search" @keydown.enter.stop.prevent="selectOption()"
           @keydown.arrow-up.prevent="focusPreviousOption()" @keydown.arrow-down.prevent="focusNextOption()"
-          type="search" class="w-full h-full form-control focus:outline-none" />
+          type="search" class="block w-full h-full bg-gray-800 form-control focus:outline-none focus:border-b focus:border-blue-500"/>
 
         <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
           <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-            <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            </path>
+            <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </span>
       </button>
     </span>
 
-    <div x-show="open" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0" x-cloak class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg">
-      <ul x-ref="listbox" @keydown.enter.stop.prevent="selectOption()" @keydown.arrow-up.prevent="focusPreviousOption()"
-        @keydown.arrow-down.prevent="focusNextOption()" role="listbox"
-        :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null" tabindex="-1"
+    <div 
+      x-cloak 
+      x-show="open" 
+      x-transition:leave="transition ease-in duration-100" 
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0" 
+      class="absolute z-10 w-full max-w-xs mt-1 text-gray-200 bg-gray-800 rounded shadow-lg">
+      <ul 
+        role="listbox"
+        tabindex="-1"
+        x-ref="listbox" 
+        :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null" 
+        @keydown.enter.stop.prevent="selectOption()" 
+        @keydown.arrow-up.prevent="focusPreviousOption()"
+        @keydown.arrow-down.prevent="focusNextOption()" 
         class="py-1 overflow-auto text-base leading-6 rounded-md shadow-xs max-h-60 focus:outline-none sm:text-sm sm:leading-5">
         <template x-for="(key, index) in Object.keys(options)" :key="index">
           <li :id="name + 'Option' + focusedOptionIndex" @click="selectOption()"
             @mouseenter="focusedOptionIndex = index" @mouseleave="focusedOptionIndex = null" role="option"
             :aria-selected="focusedOptionIndex === index"
-            :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }"
-            class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9">
+            :class="{ 'text-white bg-blue-500': index === focusedOptionIndex, 'text-white': index !== focusedOptionIndex }"
+            class="relative py-2 pl-3 text-gray-200 cursor-default select-none pr-9">
             <span x-text="Object.values(options)[index]"
               :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }"
               class="block font-normal truncate"></span>
@@ -47,7 +57,7 @@
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd" />
+                  clip-rule="evenodd"/>
               </svg>
             </span>
           </li>
@@ -58,105 +68,160 @@
       </ul>
     </div>
   </div>
+
+  <div class="mt-16">
+    <template x-for="(easeKey, easeIndex) in Object.keys( {{easings|dump}} )" :key="easeIndex">
+      <div class="flex items-center mt-16">
+        <h3 class="{% if value === default and key !== 'DEFAULT' %}default {% endif %} w-40 px-2 py-1 font-mono text-center bg-gray-800 border border-gray-900 rounded" x-text="`ease-${easeKey}`"></h3>
+        <div class="w-full">
+          <button type="button" class="flex items-center justify-center w-10 h-10 ml-8 border-4 border-gray-400 rounded hover:border-blue-500">
+            <span class="sr-only">Reset animation</span>
+            <svg class="text-gray-400 ui-icon play hover:text-blue-500" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="10" height="10" rx="1" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <span class="relative block w-full h-4 ml-8 bg-gray-100 rounded dark:bg-gray-600">
+          <span 
+            :class="`duration-${selectedClass} ease-${easeKey}`"            
+            class="absolute block w-12 h-12 p-2 transition-all bg-gray-700 -top-4">
+            <span class="block w-full h-full bg-blue-500 rounded"></span>
+          </span>
+        </span>
+      </div>
+    </template>
   </div>
 
-  <script>
-    function select(config) {
-      return {
-        data: config.data,
-        emptyOptionsMessage: config.emptyOptionsMessage ?? 'No results match your search.',
-        focusedOptionIndex: null,
-        name: config.name,
-        open: false,
-        options: {},
-        placeholder: config.placeholder ?? 'Select an option',
-        search: '',
-        value: config.value,
-        closeListbox: function () {
-          this.open = false
-          this.focusedOptionIndex = null
-          this.search = ''
-        },
-        focusNextOption: function () {
-          if (this.focusedOptionIndex === null)
-            return this.focusedOptionIndex = Object
-              .keys(this.options)
-              .length - 1
-          if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length)
-            return
-          this.focusedOptionIndex++
-          this
-            .$refs
-            .listbox
-            .children[this.focusedOptionIndex]
-            .scrollIntoView({ block: "center" })
-        },
-        focusPreviousOption: function () {
-          if (this.focusedOptionIndex === null)
-            return this.focusedOptionIndex = 0
-          if (this.focusedOptionIndex <= 0)
-            return
+  {# {% for key, value in easings %}
+    {% set default = easings['DEFAULT'] %}
+    {% if key !== 'DEFAULT' %}
+      <div 
+        x-data="{ playing: false }" 
+        x-on:updated-current.window="newDuration = $event.detail.newDuration"
+        class="flex items-center mt-16">
+        <h3 class="{% if value === default and key !== 'DEFAULT' %}default {% endif %} w-40 px-2 py-1 font-mono text-center bg-gray-800 border border-gray-900 rounded">ease-{{key}}</h3>
+        <div>
+          <button type="button" 
+                  @click="playing = !playing"
+                  class="flex items-center justify-center w-10 h-10 ml-8 border-4 border-gray-400 rounded hover:border-blue-500">
+            <span class="sr-only">Reset animation</span>
+            <svg
+              :class="{ 'play' : playing, 'stop' : !playing }"
+              class="text-gray-400 ui-icon play hover:text-blue-500" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="10" height="10" rx="1" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <span class="relative block w-full h-4 ml-8 bg-gray-100 rounded dark:bg-gray-600">
+          <span
+            x-data
+            :class="{ '`duration-${newDuration}`': !playing, 'left-full' : playing }"
+            class="transition-all ease-{{ key }} absolute block w-12 h-12 p-2 bg-gray-700 -top-4">
+            <span class="block w-full h-full bg-blue-500 rounded"></span>
+          </span>
+        </span>
+      </div>
+    {% endif %}
+  {% endfor %} #}
+</div>
 
-          this.focusedOptionIndex--
-
-          this
-            .$refs
-            .listbox
-            .children[this.focusedOptionIndex]
-            .scrollIntoView({ block: "center" })
-        },
-
-        init: function () {
-          this.options = this
-            .data
-
-          if (!(this.value in this.options))
-            this.value = null
-
-          this
-            .$watch('search', ((value) => {
-              if (!this.open || !value)
-                return this.options = this.data
-
-              this.options = Object
-                .keys(this.data)
-                .filter((key) => this.data[key].toLowerCase().includes(value.toLowerCase()))
-                .reduce((options, key) => {
-                  options[key] = this.data[key]
-                  return options
-                }, {})
-            }))
-        },
-
-        selectOption: function () {
-          if (!this.open)
-            return this.toggleListboxVisibility()
-          this.value = Object.keys(this.options)[this.focusedOptionIndex]
-          this.closeListbox()
-        },
-
-        toggleListboxVisibility: function () {
-          if (this.open)
-            return this.closeListbox()
-
-          this.focusedOptionIndex = Object
+<script>
+  function select(config) {
+    return {
+      data: config.data,
+      emptyOptionsMessage: config.emptyOptionsMessage ?? 'No results match your search.',
+      focusedOptionIndex: null,
+      name: config.name,
+      open: false,
+      options: {},
+      placeholder: config.placeholder ?? 'Select an option',
+      search: '',
+      value: config.value,
+      selectedClass: null,
+      closeListbox: function () {
+        this.open = false
+        this.focusedOptionIndex = null
+        this.search = ''
+      },
+      focusNextOption: function () {
+        if (this.focusedOptionIndex === null) 
+          return this.focusedOptionIndex = Object
             .keys(this.options)
-            .indexOf(this.value)
-          if (this.focusedOptionIndex < 0)
-            this.focusedOptionIndex = 0
-          this.open = true
-          this.$nextTick(() => {
-            this
-              .$refs
-              .search
-              .focus()
-            this
-              .$refs
-              .listbox
-              .children[this.focusedOptionIndex]
-              .scrollIntoView({ block: "center" })
-          })
-        }
+            .length - 1
+        if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length) 
+          return
+        this.focusedOptionIndex++
+        this
+          .$refs
+          .listbox
+          .children[this.focusedOptionIndex]
+          .scrollIntoView({block: "center"})
+      },
+      focusPreviousOption: function () {
+        if (this.focusedOptionIndex === null) 
+          return this.focusedOptionIndex = 0
+        if (this.focusedOptionIndex <= 0) 
+          return
+
+        this.focusedOptionIndex--
+
+        this
+          .$refs
+          .listbox
+          .children[this.focusedOptionIndex]
+          .scrollIntoView({block: "center"})
+      },
+
+      init: function () {
+        this.options = this.data
+        this.selectedClass = Object.keys(this.data)[0]
+        if (!(this.value in this.options)) 
+          this.value = null
+
+        this.$watch('search', ((value) => {
+          if (!this.open || !value) 
+            return this.options = this.data
+
+          this.options = Object
+            .keys(this.data)
+            .filter((key) => this.data[key].toLowerCase().includes(value.toLowerCase()))
+            .reduce((options, key) => {
+              options[key] = this.data[key]
+              return options
+            }, {})
+        }))
+      },
+
+      selectOption: function () {
+        if (!this.open) 
+          return this.toggleListboxVisibility()
+        this.value = Object.keys(this.options)[this.focusedOptionIndex]
+        this.selectedClass = Object.keys(this.data)[this.focusedOptionIndex]
+        this.closeListbox()
+      },
+
+      toggleListboxVisibility: function () {
+        if (this.open) 
+          return this.closeListbox()
+
+        this.focusedOptionIndex = Object
+          .keys(this.options)
+          .indexOf(this.value)
+        if (this.focusedOptionIndex < 0) 
+          this.focusedOptionIndex = 0
+        this.open = true
+        this.$nextTick(() => {
+          this
+            .$refs
+            .search
+            .focus()
+          this
+            .$refs
+            .listbox
+            .children[this.focusedOptionIndex]
+            .scrollIntoView({block: "center"})
+        })
       }
     }
-  </script>
+  }
+</script>
