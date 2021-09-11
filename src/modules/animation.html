@@ -1,132 +1,162 @@
 {% set durations = tw.global.transitionDuration %}
+{% set durationsListLength = durations | length %}
+{% set easings = tw.global.transitionTimingFunction %}
 
-<div
-  class="w-full"
-  x-data="selectList({ selecting: false, selected: '75' })"
->
-  <div class="flex justify-between mt-16">
-    <h3 class="text-3xl font-semibold text-gray-600">Transition duration</h3>
+<div class="max-w-xs">
+  <div
+    x-data="select({ data: {{durations|dump}}, emptyOptionsMessage: 'No durations match your search.', name: 'duration', placeholder: 'Select a duration' })"
+    x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative">
+    <span class="inline-block w-full rounded-md shadow-sm">
+      <button x-ref="button" @click="toggleListboxVisibility()" :aria-expanded="open" aria-haspopup="listbox"
+        class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+        <span x-show="! open" x-text="value in options ? options[value] : placeholder"
+          :class="{ 'text-gray-500': ! (value in options) }" class="block truncate"></span>
 
-    <div
-      @keydown.escape="closeListbox()"
-      @click.away="closeListbox()"
-      class="relative w-64 max-w-sm">
-      <div>
-        <button
-          x-ref="button"
-          @click="toggleListboxVisibility()"
-          :aria-expanded="selecting"
-          aria-haspopup="listbox"
-          type="button"
-          class="flex justify-between w-full py-2 pl-3 pr-1 bg-blue-900 border border-blue-900 rounded-md bg-opacity-5 border-opacity-10 focus:bg-opacity-10 hover:bg-opacity-10 focus:border-opacity-50">
-          <span
-            x-text="`ease-${selected}`"
-            class="">transition speed</span>
-          <span class="text-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        x-show="selecting"
-        class="absolute inset-x-auto top-auto z-40 w-full mt-2 bg-gray-100 border border-gray-200 rounded-md drop-shadow-xl">
-        <ul x-ref="listbox" role="listbox" title="Select transition duration" class="">
-          {% for key, value in tw.global.transitionDuration %}
-            <li 
-              data-index="{{ loop.index }}"
-              role="option"
-              @click="select( {{ key }} )"
-              class="px-3 py-1 hover:cursor-pointer hover:bg-blue-900 hover:bg-opacity-5">
-                ease-{{- key -}}
-            </li>
-          {% endfor %}
-{# 
-          <template x-for="(key, index) in Object.keys(config.data)" :key="index">
-            <li
-              {# :id="name + 'Option' + focusedOptionIndex"
-              @click="select()"
-              role="option"
-              {# :aria-selected="focusedOptionIndex === index"
-              :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }"
-              class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9"
-            >
-              <span x-text="Object.values(options)[index]"
-                  :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }"
-                  class="block font-normal truncate"></span>
+        <input x-ref="search" x-show="open" x-model="search" @keydown.enter.stop.prevent="selectOption()"
+          @keydown.arrow-up.prevent="focusPreviousOption()" @keydown.arrow-down.prevent="focusNextOption()"
+          type="search" class="w-full h-full form-control focus:outline-none" />
 
-              <span
-                x-show="key === value"
-                :class="{ 'text-white': index === focusedOptionIndex, 'text-indigo-600': index !== focusedOptionIndex }"
-                class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600"
-              >
-                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-              </span>
-            </li>
-          </template> #}
+        <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+          <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+          </svg>
+        </span>
+      </button>
+    </span>
 
-        </ul>
-      </div>
+    <div x-show="open" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0" x-cloak class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg">
+      <ul x-ref="listbox" @keydown.enter.stop.prevent="selectOption()" @keydown.arrow-up.prevent="focusPreviousOption()"
+        @keydown.arrow-down.prevent="focusNextOption()" role="listbox"
+        :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null" tabindex="-1"
+        class="py-1 overflow-auto text-base leading-6 rounded-md shadow-xs max-h-60 focus:outline-none sm:text-sm sm:leading-5">
+        <template x-for="(key, index) in Object.keys(options)" :key="index">
+          <li :id="name + 'Option' + focusedOptionIndex" @click="selectOption()"
+            @mouseenter="focusedOptionIndex = index" @mouseleave="focusedOptionIndex = null" role="option"
+            :aria-selected="focusedOptionIndex === index"
+            :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }"
+            class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9">
+            <span x-text="Object.values(options)[index]"
+              :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }"
+              class="block font-normal truncate"></span>
+
+            <span x-show="key === value"
+              :class="{ 'text-white': index === focusedOptionIndex, 'text-indigo-600': index !== focusedOptionIndex }"
+              class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+              <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd" />
+              </svg>
+            </span>
+          </li>
+        </template>
+
+        <div x-show="! Object.keys(options).length" x-text="emptyOptionsMessage"
+          class="px-3 py-2 text-gray-900 cursor-default select-none"></div>
+      </ul>
     </div>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 3xl:grid-cols-3">
-    {% for key, value in tw.global.transitionTimingFunction %}
-      <div class="relative w-64 h-64 mt-16 text-center group place-self-center">
-        <div class="absolute inset-auto w-64 h-64 rounded-full shadow-inner bg-gray-50"
-      style="background: radial-gradient(circle, transparent 32%, rgba(0,0,0,.025) 32%)"
-      ></div>
-        {# <svg class="absolute inset-auto z-10 w-64 h-64 transition duration-300 transform ease-{{ key }} group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 256 256">
-        <path fill="url(#gradient)" d="M62.489 125.082a1.02 1.02 0 00-1.017 1.03c.551 35.083 29.162 63.352 64.375 63.352s63.824-28.269 64.375-63.352a1.018 1.018 0 00-1.017-1.029l-31.718-.001c-.552 0-1.003.44-1.017.991-.522 16.463-14.033 29.649-30.623 29.649-16.59 0-30.101-13.186-30.624-29.649a1.017 1.017 0 00-1.016-.989c-4.941-.002-26.719-.002-31.718-.002z" transform="matrix(-1.98812 0 0 1.98812 378.201 -120.677)"/>
-        <defs>
-          <linearGradient id="gradient" x1="0" x2="1" y1="0" y2="0" gradientTransform="matrix(-131.205 0 0 131.205 190.222 125.082)" gradientUnits="userSpaceOnUse">
-            <stop class="text-blue-500" offset="0" stop-color="currentColor"/>
-            <stop class="text-blue-600" offset="1" stop-color="currentColor"/>
-          </linearGradient>
-        </defs>
-      </svg> #}
-        <svg class="absolute inset-auto w-64 h-64 transition duration-300 transform ease-{{ key }} group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 256 256">
-          <path fill="none" d="M.012 0h256.001v256H.012z"/>
-          <circle class="text-blue-500" cx="1617.57" cy="111.856" r="50.757" fill="currentColor" fill-opacity="1" transform="matrix(.62314 0 0 .63046 -974.853 54.93)"/>
-          <circle cx="1830.25" cy="254.461" r="116.425" fill="none" stroke="transparent" stroke-width="1.21" transform="matrix(.82456 0 0 .82456 -1381.158 -84.37)"/>
-        </svg>
-        <div class="absolute bottom-0 w-64 h-32 bg-gray-50"></div>
-        <div class="absolute w-32 h-32 rounded-full shadow-inner bg-gray-50 inset-16"></div>
-        <code class="absolute inset-x-auto bottom-0 p-1 text-sm text-gray-600 bg-gray-100 rounded-md">{{ key }}</code>
-      </div>
-    {% endfor %}
   </div>
-</div>
 
-<script>
-  function selectList(config) {
-    return {
-      name: config.name || 'transitionDuration',
-      data: config.data,
-      selected: `${config.selected}` || 'ease-75',
-      focusedOptionIndex: null,
-      selecting: config.selecting || false,
-      options: this.data,
-      closeListbox: function () {
-        this.selecting = false
-        this.focusedOptionIndex = null
-      },
-      //init: function () {
-      //  this.options = ""
-      //},
-      toggleListboxVisibility: function () {
-        if (this.selecting) 
-          return this.closeListbox()
-        this.selecting = true
-      },
-      select: function (key) {
-        if (this.selecting) 
-          return this.closeListbox()
-        this.selecting = true
-        this.selected = selection
+  <script>
+    function select(config) {
+      return {
+        data: config.data,
+        emptyOptionsMessage: config.emptyOptionsMessage ?? 'No results match your search.',
+        focusedOptionIndex: null,
+        name: config.name,
+        open: false,
+        options: {},
+        placeholder: config.placeholder ?? 'Select an option',
+        search: '',
+        value: config.value,
+        closeListbox: function () {
+          this.open = false
+          this.focusedOptionIndex = null
+          this.search = ''
+        },
+        focusNextOption: function () {
+          if (this.focusedOptionIndex === null)
+            return this.focusedOptionIndex = Object
+              .keys(this.options)
+              .length - 1
+          if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length)
+            return
+          this.focusedOptionIndex++
+          this
+            .$refs
+            .listbox
+            .children[this.focusedOptionIndex]
+            .scrollIntoView({ block: "center" })
+        },
+        focusPreviousOption: function () {
+          if (this.focusedOptionIndex === null)
+            return this.focusedOptionIndex = 0
+          if (this.focusedOptionIndex <= 0)
+            return
+
+          this.focusedOptionIndex--
+
+          this
+            .$refs
+            .listbox
+            .children[this.focusedOptionIndex]
+            .scrollIntoView({ block: "center" })
+        },
+
+        init: function () {
+          this.options = this
+            .data
+
+          if (!(this.value in this.options))
+            this.value = null
+
+          this
+            .$watch('search', ((value) => {
+              if (!this.open || !value)
+                return this.options = this.data
+
+              this.options = Object
+                .keys(this.data)
+                .filter((key) => this.data[key].toLowerCase().includes(value.toLowerCase()))
+                .reduce((options, key) => {
+                  options[key] = this.data[key]
+                  return options
+                }, {})
+            }))
+        },
+
+        selectOption: function () {
+          if (!this.open)
+            return this.toggleListboxVisibility()
+          this.value = Object.keys(this.options)[this.focusedOptionIndex]
+          this.closeListbox()
+        },
+
+        toggleListboxVisibility: function () {
+          if (this.open)
+            return this.closeListbox()
+
+          this.focusedOptionIndex = Object
+            .keys(this.options)
+            .indexOf(this.value)
+          if (this.focusedOptionIndex < 0)
+            this.focusedOptionIndex = 0
+          this.open = true
+          this.$nextTick(() => {
+            this
+              .$refs
+              .search
+              .focus()
+            this
+              .$refs
+              .listbox
+              .children[this.focusedOptionIndex]
+              .scrollIntoView({ block: "center" })
+          })
+        }
       }
     }
-  }
-</script>
+  </script>

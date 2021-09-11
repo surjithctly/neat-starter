@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
     x-data="{ light: false }"
+    class="h-full"
     :class="{ 'dark' : light !== true  }"
 >
   <head>
@@ -17,32 +18,25 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
 
-  {# x-data="flightplan()" #}
-      
-      {# @click="moduleNav = false" #}
-      {# {% include "./blocks/module-nav.html" %} #}
-
-  <body x-data="{ moduleNav: false }" class="flex flex-col min-h-screen font-sans text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-200" x-cloak>
+  <body x-data="{ moduleNav: false }" class="flex flex-col min-h-full font-sans text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-200" x-cloak>
 
     {# Header #}
     {% include "./blocks/header.html" %}
-    
     {# Main content #}
-    <main x-data="{ currentIndex: 0 }" class="w-full mx-auto max-w-screen-4xl">
-        {{content|safe}}
+    <main x-data="flightplan()" class="w-full mx-auto max-w-screen-4xl">
+      {{content|safe}}
     </main>
-    
     {# Footer #}
     {% include "./blocks/footer.html" %}
 
     <!-- Alpine Plugins -->
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js"></script>
     <script defer="defer" src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-
     <!-- Alpine Core -->
     <script defer="defer" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="/static/js/app.js"></script>
-    {% if path == "home" %}
 
+    {% if path == "home" %}
       <!-- Netlify Identity Widget -->
       <!-- Needed only if you are using Netlify Identity feature -->
       <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

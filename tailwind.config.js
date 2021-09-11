@@ -62,8 +62,8 @@ module.exports = {
         serif: [
           "Gazpacho Black"
         ],
-        serif: [
-          "Cascadia Code"
+        mono: [
+          '"Recursive"', 'monospace'
         ]
       },
       fontSize: {

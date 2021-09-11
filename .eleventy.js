@@ -1,4 +1,4 @@
-
+4
 const lib = require("./src/static/js/lib");
 const yaml = require("js-yaml");
 const { DateTime } = require("luxon");
@@ -15,6 +15,21 @@ module.exports = function (eleventyConfig) {
 
   // is this value an object?
   eleventyConfig.addFilter("type", lib.getTypeof);
+
+  // is this value an object?
+  eleventyConfig.addFilter("hexToRgb", lib.hexToRgb);
+
+  // is this value an object?
+  eleventyConfig.addFilter("rgbToCmyk", lib.rgbToCmyk);
+
+  // is this value an object?
+  eleventyConfig.addFilter("getContrastYIQ", lib.getContrastYIQ);
+
+  // is this value an object?
+  eleventyConfig.addFilter("getColorSpacesFromHex", lib.getColorSpacesFromHex);
+
+  // find default value
+  eleventyConfig.addFilter("setDefault", lib.displayAsDefault);
 
   // remove alpha entities
   eleventyConfig.addFilter("stripAlpha", lib.stripAlpha);

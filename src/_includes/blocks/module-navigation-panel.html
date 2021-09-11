@@ -1,11 +1,9 @@
-{% set moduleList = modules.pages %}
-
-
-<div class="fixed top-0 left-0 z-20 flex flex-col w-64 transition-transform duration-200 ease-in-out bg-red-600 shadow-2xl 2xl:bg-yellow-600 xl:bg-blue-600 xl:w-48 2xl:w-64 xl:shadow-none xl:translate-x-0 xl:z-10 xl:flex-shrink-0 xl:sticky" x-cloak
+<div class="fixed left-0 z-20 flex flex-col transition-transform duration-200 ease-in-out shadow-2xl w-80 dark:bg-gray-800 xl:w-48 2xl:w-64 xl:translate-x-0 xl:sticky xl:block xl:shadow-none xl:flex-shrink-0" 
+    x-cloak
     :class="{ '-translate-x-full' : !moduleNav, 'translate-x-0' : moduleNav }"
 >
-    <nav class="z-0 flex-grow min-h-screen xl:sticky xl:top-16">
-        <ul class="pb-16 mt-0 overflow-y-auto font-medium divide-y divide-gray-500 divide-opacity-10 dark:divide-opacity-30 text-md" aria-label="Main Navigation">
+    <nav @click.away="moduleNav = false" class="sticky min-h-screen pt-4 top-8">
+        <ul class="pb-16 mt-0 overflow-y-auto font-medium divide-y divide-gray-500 divide-opacity-5 dark:divide-opacity-10 text-md" aria-label="Main Navigation">
 
             {% for module in moduleList %}
                 {% set currentModule = module %}
@@ -13,7 +11,7 @@
                 <li class="-mt-px">
                     <div class="flex justify-between group">
                         <a 
-                            href="#module-{{ module.id }}"
+                            href="#{{ module.id }}"
                             @click="currentIndex = {{ loop.index0 }}"
                             {# class="flex-grow {% if currentModule.id === module.id %}bg-opacity-5 border-l-4 {% else %}bg-opacity-0 border-transparent {% endif %}border-l-8 flex items-center h-10 transition cursor-pointer group text-sm hover:bg-gray-500 hover:bg-opacity-5"  #}
                             class="flex items-center flex-grow h-10 text-sm transition cursor-pointer group hover:bg-gray-500 hover:bg-opacity-5" 

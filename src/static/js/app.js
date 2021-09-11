@@ -15,7 +15,7 @@ function setTheme() {
     }
 }
 
-function flightplan() {
+const flightplan = () => {
     return {
         moduleActive: false,
         moduleList: document.querySelectorAll('.module'),
@@ -44,6 +44,16 @@ function flightplan() {
 
             // Whenever the user explicitly chooses to respect the OS preference
             localStorage.removeItem('theme')
+        },
+        copy(value, toastIt) {
+            this.$clipboard(value);
+            if (toastIt) {
+                this.toaster(value);
+            }
+        },
+        toaster(value) {
+            this.$dispatch('toast', { notification: value })
         }
+
     }
 }
