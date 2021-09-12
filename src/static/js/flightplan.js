@@ -1,37 +1,95 @@
 function flightplan() {
-    return {
-        global: {
-            panelnav: {
-                open: false,
-                showPanelNav: function () {
-                    this.open = true
-                },
-                hidePanelNav: function () {
-                    this.open = false
-                },
-            },
+  return {
 
-            toaster: {
-                message: '',
-                visible: false,
-                icon: null,
-                showToast: function (message) {
-                    this.message = message || ''
-                    this.visible = true
-                    setTimeout( ()=>{
-                        this.hideToast()
-                    }, 1500)
-                },
-                hideToast: function () {
-                    this.visible = false
-                },
+    Global: {
 
-            },
+      NavigationPanel: {
+        isVisible: false,
+        displayPanel: function () {
+          this.isVisible = true
         },
-        // color: {
-        //     copy: function (value) {
-        //         this.$refs.$el.$clipboard(value);
-        //     }
-        // },
+        hidePanel: function () {
+          this.isVisible = false
+        },
+      },
+
+      ToastNotification: function () {
+        return {
+          message: '',
+          isVisible: false,
+          icon: null,
+          displayContainer: function (content) {
+            this.content = content || ''
+            this.isVisible = true
+            setTimeout(() => {
+              this.hideContainer()
+            }, 1500)
+          },
+          hideContainer: function () {
+            this.isVisible = false
+          },
+        }
+      },
+
+      Clipboard: function () {
+        return {
+          content: '',
+          toastContent: null,
+          setContent: function (content, func, toastContent) {
+            func(content);
+          },
+        }
+      }
     }
+  }
 }
+
+
+// function NavigationPanel() {
+//   return {
+//     isVisible: false,
+//     displayPanel: function () {
+//       this.isVisible = true
+//     },
+//     hidePanel: function () {
+//       this.isVisible = false
+//     },
+//   }
+// }
+
+// function ToastNotification(content) {
+//   return {
+//     message: '',
+//     isVisible: false,
+//     icon: null,
+//     displayContainer: function () {
+//       this.content = content || ''
+//       this.isVisible = true
+//       setTimeout(() => {
+//         this.hideContainer()
+//       }, 1500)
+//     },
+//     hideContainer: function () {
+//       this.isVisible = false
+//     },
+//   }
+// }
+
+// function Clipboard() {
+//   return {
+//     content: '',
+//     toastContent: null,
+//     setContent: function (content, func, toastContent) {
+//       func(content);
+//       if (toastContent != null) {
+//         ToastNotification(toastContent).displayContainer()
+//       }
+//     },
+//   }
+// }
+
+  // color: {
+  //     copy: function (value) {
+  //         this.$refs.$el.$clipboard(value);
+  //     }
+  // },

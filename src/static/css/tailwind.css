@@ -21,6 +21,32 @@
 html {
   scroll-behavior: smooth;
 }
+body {
+  display: grid;
+  grid: [stack] 1fr/min-content [stack] 1fr;
+}
+
+#navigation-panel-open {
+  grid-template-columns: [nav] 2fr [escape] 1fr;
+}
+
+@media (max-width: 540px) {
+  #navigation-panel-open {
+      position: sticky;
+      top: 0;
+      max-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overflow: hidden auto;
+      overscroll-behavior: contain;
+      visibility: hidden;
+      transform: translateX(-110vw);
+      will-change: transform;
+      /* transition: transform var(--duration) var(--easeOutExpo),visibility 0s linear var(--duration); */
+    }
+}
+
+
 
 /* body {
   background-image: linear-gradient(to right, theme('colors.gray.800') 0,  theme('colors.gray.800') 50%, theme('colors.gray.700') 50%, theme('colors.gray.700') 100%  )
