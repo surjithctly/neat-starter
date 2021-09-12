@@ -94,21 +94,24 @@
                 <ul class="p-2 text-xs">
                   <li x-data="{ css: 'bg-{{key}}-{{subkey}}' }" class="">
                     <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" type="button" 
-                    @click="copy(css, true)">
+                    @click="$clipboard(css)">
                       <span class="uppercase">CSS:</span>
                       <span class="ml-4 font-mono" x-text="css"></span>
                     </button>
                   </li>
                   <li x-data="{ hex: '{{subvalue}}' }" class="">
                     <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" type="button" 
-                    @click="copy(hex, true)">
+                    @click="$clipboard(hex)">
                       <span class="uppercase">HEX:</span>
                       <span class="ml-4 font-mono" x-text="hex"></span>
                     </button>
                   </li>
                   <li x-data="{ rgb: '{{ subvalue | hexToRgb() }}' }" class="">
-                    <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100" type="button" 
-                    @click="copy(rgb, true)">
+                    <button 
+                      type="button"
+                      @click="global.toaster.showToast(`${rgb} successfully copied.`)"
+                      class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100">
+                      
                       <span class="uppercase">RGB:</span>
                       <span class="ml-4 font-mono" x-text="rgb"></span>
                     </button>

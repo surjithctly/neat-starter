@@ -87,6 +87,7 @@ module.exports = function (eleventyConfig) {
     "./src/admin/config.yml": "./admin/config.yml",
     "./node_modules/alpinejs/dist/alpine.js": "./static/js/alpine.js",
     "./src/static/js/app.js": "./static/js/app.js",
+    "./src/static/js/flightplan.js": "./static/js/flightplan.js",
     "./src/static/js/@alpinejs.persist.min.js": "./static/js/alpine-persist.js",
     "./node_modules/prismjs/themes/prism-tomorrow.css":
       "./static/css/prism-tomorrow.css",

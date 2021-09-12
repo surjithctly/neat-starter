@@ -18,13 +18,31 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
 
-  <body x-data="{ moduleNav: false }" class="flex flex-col min-h-full font-sans text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-200" x-cloak>
+  <body 
+    x-data="flightplan()"
+    x-init="global.panelnav.hidePanelNav()"
+    x-cloak
+    class="flex flex-col min-h-full font-sans text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-200">
 
     {# Header #}
     {% include "./blocks/header.html" %}
     {# Main content #}
-    <main x-data="flightplan()" class="w-full mx-auto max-w-screen-4xl">
+    <main
+      class="relative w-full mx-auto max-w-screen-4xl">
+      <div
+        x-ref="toaster"
+        x-show="global.toaster.visible"
+        x-text="global.toaster.message"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 translate-x-8"
+        x-transition:enter-end="opacity-100 translate-x-0" 
+        x-transition:leave="transition ease-in duration-1000" 
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0" 
+        class="fixed w-64 p-4 text-xs bg-gray-900 border-l-8 border-green-600 top-16 right-4"></div>
+
       {{content|safe}}
+      
     </main>
     {# Footer #}
     {% include "./blocks/footer.html" %}
@@ -34,6 +52,7 @@
     <script defer="defer" src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <!-- Alpine Core -->
     <script defer="defer" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/static/js/flightplan.js"></script>
     <script src="/static/js/app.js"></script>
 
     {% if path == "home" %}

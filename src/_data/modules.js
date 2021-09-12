@@ -13,12 +13,12 @@ module.exports = {
     all,
     pages: [
         {
-            id: "animation",
-            icon: `<path fill="currentColor" d="M2.529 2A.53.53 0 002 2.53V17.5a.5.5 0 00.5.5H3a.5.5 0 00.5-.5V2.518A.518.518 0 002.982 2h-.453zM8 2a1 1 0 00-1 1v14a1 1 0 001 1h1.44a1 1 0 001-.996l.056-14a1 1 0 00-1-1.004H8zm7 0a1 1 0 00-1 1v14a1 1 0 001 1h2a1 1 0 001-1V3a1 1 0 00-1-1h-2z"/>`,
-        },
-        {
             id: "color",
             icon: `<path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd"></path>`
+        },
+        {
+            id: "animation",
+            icon: `<path fill="currentColor" d="M2.529 2A.53.53 0 002 2.53V17.5a.5.5 0 00.5.5H3a.5.5 0 00.5-.5V2.518A.518.518 0 002.982 2h-.453zM8 2a1 1 0 00-1 1v14a1 1 0 001 1h1.44a1 1 0 001-.996l.056-14a1 1 0 00-1-1.004H8zm7 0a1 1 0 00-1 1v14a1 1 0 001 1h2a1 1 0 001-1V3a1 1 0 00-1-1h-2z"/>`,
         },
         {
             id: "typography",

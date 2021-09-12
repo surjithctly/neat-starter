@@ -1,8 +1,8 @@
 <div class="fixed left-0 z-20 flex flex-col transition-transform duration-200 ease-in-out shadow-2xl w-80 dark:bg-gray-800 xl:w-48 2xl:w-64 xl:translate-x-0 xl:sticky xl:block xl:shadow-none xl:flex-shrink-0" 
     x-cloak
-    :class="{ '-translate-x-full' : !moduleNav, 'translate-x-0' : moduleNav }"
+    :class="{ '-translate-x-full' : !global.panelnav.open, 'translate-x-0' : global.panelnav.open }"
 >
-    <nav @click.away="moduleNav = false" class="sticky min-h-screen pt-4 top-8">
+    <nav @click.away="global.panelnav.hidePanelNav()" class="sticky min-h-screen pt-4 top-8">
         <ul class="pb-16 mt-0 overflow-y-auto font-medium divide-y divide-gray-500 divide-opacity-5 dark:divide-opacity-10 text-md" aria-label="Main Navigation">
 
             {% for module in moduleList %}

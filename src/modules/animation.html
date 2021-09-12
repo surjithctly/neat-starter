@@ -3,10 +3,8 @@
 {% set easings = tw.global.transitionTimingFunction %}
 
 <div
-  x-ref="selectComponent"
-  x-data="select({ data: {{durations|dump}}, emptyOptionsMessage: 'No durations match your search.', name: 'duration', placeholder: 'Select a duration' })"
-  x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative"
-  class="mt-16">
+  x-data="select({ data: {{durations|dump}}, easings: {{easings|dump}}, emptyOptionsMessage: 'No durations match your search.', name: 'duration', dynamicDemoClasses: [], placeholder: 'Select a duration' })"
+  x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative mt-16">
   <div class="max-w-xs">
     <span class="inline-block w-full rounded-md shadow-sm">
       <button x-ref="button" @click="toggleListboxVisibility()" :aria-expanded="open" aria-haspopup="listbox"
@@ -15,7 +13,7 @@
           :class="{ 'text-gray-500': ! (value in options) }" class="block truncate"></span>
         <input x-ref="search" x-show="open" x-model="search" @keydown.enter.stop.prevent="selectOption()"
           @keydown.arrow-up.prevent="focusPreviousOption()" @keydown.arrow-down.prevent="focusNextOption()"
-          type="search" class="block w-full h-full bg-gray-800 form-control focus:outline-none focus:border-b focus:border-blue-500"/>
+          type="search" class="block w-full h-full bg-gray-800 border-b border-transparent form-control focus:outline-none focus:border-blue-500"/>
 
         <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
           <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
@@ -69,60 +67,34 @@
     </div>
   </div>
 
-  <div class="mt-16">
+  <div class="w-full mt-16">
     <template x-for="(easeKey, easeIndex) in Object.keys( {{easings|dump}} )" :key="easeIndex">
-      <div class="flex items-center mt-16">
+      <div class="flex items-center w-full mt-16">
         <h3 class="{% if value === default and key !== 'DEFAULT' %}default {% endif %} w-40 px-2 py-1 font-mono text-center bg-gray-800 border border-gray-900 rounded" x-text="`ease-${easeKey}`"></h3>
-        <div class="w-full">
-          <button type="button" class="flex items-center justify-center w-10 h-10 ml-8 border-4 border-gray-400 rounded hover:border-blue-500">
-            <span class="sr-only">Reset animation</span>
+        <div class="">
+          <button 
+            type="button"
+            class="flex items-center justify-center w-10 h-10 ml-8 border-4 border-gray-400 rounded hover:border-blue-500">
             <svg class="text-gray-400 ui-icon play hover:text-blue-500" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="10" height="10" rx="1" fill="currentColor"/>
             </svg>
           </button>
         </div>
         <span class="relative block w-full h-4 ml-8 bg-gray-100 rounded dark:bg-gray-600">
-          <span 
-            :class="`duration-${selectedClass} ease-${easeKey}`"            
-            class="absolute block w-12 h-12 p-2 transition-all bg-gray-700 -top-4">
+          <span
+            {# :style="{
+                  transitionTimingFunction: ${value},
+                  transitionDuration: ${selectedDuration},
+                  transitionDelay: ${enableDelay} ? ${selectedDelay} : '0s'
+                }" #}
+            
+            class="absolute block w-12 h-12 p-2 transition-all bg-gray-700 ease -top-4">
             <span class="block w-full h-full bg-blue-500 rounded"></span>
           </span>
         </span>
       </div>
     </template>
   </div>
-
-  {# {% for key, value in easings %}
-    {% set default = easings['DEFAULT'] %}
-    {% if key !== 'DEFAULT' %}
-      <div 
-        x-data="{ playing: false }" 
-        x-on:updated-current.window="newDuration = $event.detail.newDuration"
-        class="flex items-center mt-16">
-        <h3 class="{% if value === default and key !== 'DEFAULT' %}default {% endif %} w-40 px-2 py-1 font-mono text-center bg-gray-800 border border-gray-900 rounded">ease-{{key}}</h3>
-        <div>
-          <button type="button" 
-                  @click="playing = !playing"
-                  class="flex items-center justify-center w-10 h-10 ml-8 border-4 border-gray-400 rounded hover:border-blue-500">
-            <span class="sr-only">Reset animation</span>
-            <svg
-              :class="{ 'play' : playing, 'stop' : !playing }"
-              class="text-gray-400 ui-icon play hover:text-blue-500" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="10" height="10" rx="1" fill="currentColor"/>
-            </svg>
-          </button>
-        </div>
-        <span class="relative block w-full h-4 ml-8 bg-gray-100 rounded dark:bg-gray-600">
-          <span
-            x-data
-            :class="{ '`duration-${newDuration}`': !playing, 'left-full' : playing }"
-            class="transition-all ease-{{ key }} absolute block w-12 h-12 p-2 bg-gray-700 -top-4">
-            <span class="block w-full h-full bg-blue-500 rounded"></span>
-          </span>
-        </span>
-      </div>
-    {% endif %}
-  {% endfor %} #}
 </div>
 
 <script>
@@ -137,12 +109,16 @@
       placeholder: config.placeholder ?? 'Select an option',
       search: '',
       value: config.value,
-      selectedClass: null,
+      selectedDurationKey: Object.keys(config.data)[0],
+      //selectedDelayKey: Object.keys(config.easings)[0],
+      enableDelay: false,
+
       closeListbox: function () {
         this.open = false
         this.focusedOptionIndex = null
         this.search = ''
       },
+
       focusNextOption: function () {
         if (this.focusedOptionIndex === null) 
           return this.focusedOptionIndex = Object
@@ -157,6 +133,7 @@
           .children[this.focusedOptionIndex]
           .scrollIntoView({block: "center"})
       },
+
       focusPreviousOption: function () {
         if (this.focusedOptionIndex === null) 
           return this.focusedOptionIndex = 0
@@ -174,7 +151,7 @@
 
       init: function () {
         this.options = this.data
-        this.selectedClass = Object.keys(this.data)[0]
+        this.dynamicClass = Object.keys(this.data)[0]
         if (!(this.value in this.options)) 
           this.value = null
 
@@ -196,9 +173,19 @@
         if (!this.open) 
           return this.toggleListboxVisibility()
         this.value = Object.keys(this.options)[this.focusedOptionIndex]
-        this.selectedClass = Object.keys(this.data)[this.focusedOptionIndex]
         this.closeListbox()
       },
+
+      selectedDuration() {
+        return this
+          .data
+          .duration[this.selectedDurationKey]
+      },
+     // selectedDelay() {
+     //   return this
+     //     .data
+     //     .delay[this.selectedDelayKey]
+     // }
 
       toggleListboxVisibility: function () {
         if (this.open) 
