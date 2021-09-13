@@ -11,7 +11,7 @@
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
     "@tailwindcss/typography": "^0.3.1",
-    "alpinejs": "^2.6.0",
+    "alpinejs": "^3.2.4",
     "browser-sync": "^2.26.14",
     "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
