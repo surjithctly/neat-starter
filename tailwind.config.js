@@ -1,11 +1,5 @@
 module.exports = {
-  purge: {
-    mode: "all",
-    content: ["./**/*.html"],
-    options: {
-      whitelist: [],
-    },
-  },
+  content: ["./**/*.html"],
   theme: {
     container: {
       center: true,
