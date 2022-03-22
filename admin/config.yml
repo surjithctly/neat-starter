@@ -1,3 +1,22 @@
 backend:
   name: git-gateway
   branch: master # Branch to update (optional; defaults to master)
+  # These lines should *not* be indented
+media_folder: "_site/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "blog" # The path to the folder where the documents are stored  - **
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md - **
+    fields: # The fields for each document, usually in front matter
+      - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/post.njk"} # -** can use blog template alias optionally if you set it up previously 
+      - {label: "Tags", name: "tags", widget: "hidden", default: "blog"}  # - ** - This is optional
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      
